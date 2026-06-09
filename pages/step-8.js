@@ -11,6 +11,70 @@ export default function Step8() {
     clearAnswers();
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const canvas = document.createElement("canvas");
+    canvas.style.cssText =
+      "position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999;";
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+    let W = (canvas.width = window.innerWidth);
+    let H = (canvas.height = window.innerHeight);
+    const colors = ["#2563eb", "#16a34a", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4"];
+    const parts = [];
+    for (let i = 0; i < 150; i++) {
+      parts.push({
+        x: Math.random() * W,
+        y: Math.random() * -H,
+        w: 6 + Math.random() * 6,
+        h: 8 + Math.random() * 8,
+        color: colors[(Math.random() * colors.length) | 0],
+        vy: 2 + Math.random() * 3,
+        vx: -1.2 + Math.random() * 2.4,
+        rot: Math.random() * Math.PI,
+        vr: -0.12 + Math.random() * 0.24,
+      });
+    }
+    const start = Date.now();
+    let raf = 0;
+    let cleaned = false;
+    const onResize = () => {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    };
+    const cleanup = () => {
+      if (cleaned) return;
+      cleaned = true;
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+      if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
+    };
+    const draw = () => {
+      const elapsed = Date.now() - start;
+      ctx.clearRect(0, 0, W, H);
+      let alive = false;
+      for (const p of parts) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.03;
+        p.rot += p.vr;
+        if (p.y < H + 20) alive = true;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.globalAlpha = elapsed > 3500 ? Math.max(0, 1 - (elapsed - 3500) / 1500) : 1;
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      }
+      if (elapsed < 5000 && alive) raf = requestAnimationFrame(draw);
+      else cleanup();
+    };
+    window.addEventListener("resize", onResize);
+    raf = requestAnimationFrame(draw);
+    return cleanup;
+  }, []);
+
   return (
     <>
       <Head><title>Thank you — HomeOffer</title><meta name="viewport" content="width=device-width, initial-scale=1" /></Head>

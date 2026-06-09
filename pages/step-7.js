@@ -2,7 +2,6 @@ import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { FunnelLayout, getAnswers, setAnswer } from "../components/funnel";
-import { saveLead } from "../lib/firebase";
 
 export default function Step7() {
   const [f, setF] = useState({ name: "", email: "", phone: "" });
@@ -17,13 +16,7 @@ export default function Step7() {
     setAnswer("name", f.name.trim());
     setAnswer("email", f.email.trim());
     setAnswer("phone", f.phone.trim());
-    const answers = getAnswers();
-    try {
-      await saveLead(answers);
-    } catch (e2) {
-      // funnel still completes even if saving is not configured yet
-    }
-    router.push("/step-8");
+    router.push("/verify");
   };
 
   return (
@@ -42,7 +35,7 @@ export default function Step7() {
           <label className="f-label">Phone</label>
           <input className="f-input" type="tel" value={f.phone} onChange={(e) => set("phone", e.target.value)} placeholder="(555) 555-5555" />
           <button className="f-btn" type="submit" disabled={busy}>
-            {busy ? "Submitting\u2026" : "See my offer \u2192"}
+            {busy ? "\u2026" : "Continue \u2192"}
           </button>
         </form>
       </FunnelLayout>

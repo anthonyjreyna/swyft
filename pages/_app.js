@@ -74,6 +74,10 @@ export default function App({ Component, pageProps }) {
         .f-btn:disabled { opacity: 0.6; cursor: default; }
 
         .f-foot { text-align: center; color: var(--muted); font-size: 12.5px; padding: 24px 22px 34px; }
+        .f-err { color: #c0392b; font-size: 14px; margin-bottom: 12px; font-weight: 500; }
+        .f-link { display: block; width: 100%; margin-top: 12px; background: none; border: 0; color: var(--accent); font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .f-link:hover { text-decoration: underline; }
+        .f-link:disabled { opacity: 0.5; cursor: default; }
 
         .f-main.done { text-align: center; max-width: 560px; }
         .done-check { width: 64px; height: 64px; border-radius: 50%; background: var(--good); display: inline-grid; place-items: center; margin-bottom: 20px; }
