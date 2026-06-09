@@ -38,7 +38,8 @@ export function Brand() {
   );
 }
 
-export function FunnelLayout({ step, title, subtitle, children }) {
+export function FunnelLayout({ step, title, subtitle, children, showBack = true }) {
+  const router = useRouter();
   const pct = Math.round((step / TOTAL_STEPS) * 100);
   return (
     <div className="funnel">
@@ -52,6 +53,11 @@ export function FunnelLayout({ step, title, subtitle, children }) {
       </div>
 
       <main className="f-main">
+        {showBack ? (
+          <button className="f-back" type="button" onClick={() => router.back()}>
+            {"\u2190"} Back
+          </button>
+        ) : null}
         <div className="f-stepno">Step {step} of {TOTAL_STEPS}</div>
         <h1 className="f-title">{title}</h1>
         {subtitle ? <p className="f-sub">{subtitle}</p> : null}
