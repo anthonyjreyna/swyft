@@ -5,27 +5,37 @@ import { FunnelLayout, setAnswer } from "../components/funnel";
 
 const KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
-function loadMaps(key) {
-  return new Promise((resolve, reject) => {
-    if (typeof window === "undefined") return reject(new Error("no window"));
-    if (window.google && window.google.maps) return resolve();
-    const existing = document.getElementById("gmaps-js");
-    if (existing) {
-      existing.addEventListener("load", () => resolve());
-      existing.addEventListener("error", () => reject(new Error("load error")));
-      return;
-    }
-    const s = document.createElement("script");
-    s.id = "gmaps-js";
-    s.src =
-      "https://maps.googleapis.com/maps/api/js?key=" +
-      encodeURIComponent(key) +
-      "&libraries=places&loading=async&v=weekly";
-    s.async = true;
-    s.onload = () => resolve();
-    s.onerror = () => reject(new Error("load error"));
-    document.head.appendChild(s);
-  });
+// Official-style Google Maps loader: defines google.maps.importLibrary, which
+// resolves only once the API is genuinely ready. This avoids the "works only
+// after refresh" race caused by using a plain script onload.
+function bootstrapMaps(key) {
+  const w = window;
+  w.google = w.google || {};
+  const maps = (w.google.maps = w.google.maps || {});
+  if (maps.importLibrary) return; // already set up
+  const libs = new Set();
+  let loadPromise = null;
+  const load = () => {
+    if (loadPromise) return loadPromise;
+    loadPromise = new Promise((resolve, reject) => {
+      const params = new URLSearchParams();
+      params.set("key", key);
+      params.set("v", "weekly");
+      params.set("libraries", [...libs].join(","));
+      params.set("callback", "google.maps.__ib__");
+      maps.__ib__ = resolve;
+      const s = document.createElement("script");
+      s.src = "https://maps.googleapis.com/maps/api/js?" + params.toString();
+      s.async = true;
+      s.onerror = () => reject(new Error("Google Maps could not load."));
+      document.head.appendChild(s);
+    });
+    return loadPromise;
+  };
+  maps.importLibrary = (name) => {
+    libs.add(name);
+    return load().then(() => maps.importLibrary(name));
+  };
 }
 
 export default function Home() {
@@ -49,42 +59,32 @@ export default function Home() {
 
     let cancelled = false;
     if (KEY) {
-      loadMaps(KEY)
-        .then(async () => {
-          if (cancelled) return;
+      (async () => {
+        try {
+          bootstrapMaps(KEY);
           const g = window.google;
 
-          try {
-            if (g.maps.importLibrary) await g.maps.importLibrary("maps");
-          } catch (e) {}
+          const { Map } = await g.maps.importLibrary("maps");
+          if (cancelled || !mapRef.current) return;
 
-          if (mapRef.current) {
-            mapRef.current.style.display = "block";
-            mapObj.current = new g.maps.Map(mapRef.current, {
-              center: { lat: 39.5, lng: -98.35 },
-              zoom: 4,
-              mapTypeId: "roadmap",
-              disableDefaultUI: true,
-              gestureHandling: "cooperative",
-            });
-            setTimeout(() => {
-              if (cancelled || !mapObj.current) return;
-              g.maps.event.trigger(mapObj.current, "resize");
-              mapObj.current.setCenter({ lat: 39.5, lng: -98.35 });
-            }, 250);
-          }
+          mapRef.current.style.display = "block";
+          mapObj.current = new Map(mapRef.current, {
+            center: { lat: 39.5, lng: -98.35 },
+            zoom: 4,
+            mapTypeId: "roadmap",
+            disableDefaultUI: true,
+            gestureHandling: "cooperative",
+          });
+          setTimeout(() => {
+            if (cancelled || !mapObj.current) return;
+            g.maps.event.trigger(mapObj.current, "resize");
+            mapObj.current.setCenter({ lat: 39.5, lng: -98.35 });
+          }, 250);
 
-          let places = null;
-          try {
-            if (g.maps.importLibrary) places = await g.maps.importLibrary("places");
-          } catch (e) {}
-          if (!places) places = g.maps.places;
-          const PAC =
-            (places && places.PlaceAutocompleteElement) ||
-            (g.maps.places && g.maps.places.PlaceAutocompleteElement);
-          if (!PAC) return;
+          const { PlaceAutocompleteElement } = await g.maps.importLibrary("places");
+          if (cancelled) return;
 
-          const pac = new PAC();
+          const pac = new PlaceAutocompleteElement();
           pac.style.width = "100%";
           box.innerHTML = "";
           box.appendChild(pac);
@@ -116,10 +116,10 @@ export default function Home() {
           };
           pac.addEventListener("gmp-select", onSelect);
           pac.addEventListener("gmp-placeselect", onSelect);
-        })
-        .catch((err) => {
+        } catch (err) {
           console.warn("[funnel] Google Maps failed to initialize:", err);
-        });
+        }
+      })();
     }
 
     return () => {
