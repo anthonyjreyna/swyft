@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }) {
           display: flex; align-items: center; justify-content: space-between;
           padding: 16px 22px; max-width: 760px; margin: 0 auto; width: 100%;
         }
-        .brand { display: inline-flex; align-items: center; gap: 9px; font-weight: 800; font-size: 19px; letter-spacing: -0.01em; }
+        .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 800; font-size: 19px; letter-spacing: -0.01em; }
         .brand-mark {
           width: 30px; height: 30px; border-radius: 8px; background: var(--accent);
           display: inline-flex; align-items: center; justify-content: center;
@@ -39,6 +39,8 @@ export default function App({ Component, pageProps }) {
         .f-bar { height: 100%; background: var(--accent); transition: width 0.35s ease; }
 
         .f-main { flex: 1; max-width: 560px; margin: 0 auto; width: 100%; padding: 38px 22px 50px; }
+        .f-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; color: var(--muted); font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; padding: 0; margin-bottom: 14px; }
+        .f-back:hover { color: var(--accent); }
         .f-stepno { font-size: 13px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
         .f-title { font-size: clamp(26px, 5vw, 36px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; }
         .f-sub { color: var(--muted); font-size: 17px; margin-top: 12px; }
@@ -62,7 +64,7 @@ export default function App({ Component, pageProps }) {
         }
         .f-input:focus { outline: none; border-color: var(--accent); }
         .addrbox { width: 100%; }
-        .f-map { width: 100%; height: 230px; border-radius: var(--border-radius-lg, 12px); overflow: hidden; border: 1px solid var(--line); margin-bottom: 16px; background: #eef2f6; }
+        .f-map { width: 100%; height: 230px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); margin-bottom: 16px; background: #eef2f6; }
         gmp-place-autocomplete { width: 100%; display: block; }
         .f-btn {
           width: 100%; margin-top: 20px; background: var(--accent); color: #fff;
@@ -78,12 +80,6 @@ export default function App({ Component, pageProps }) {
         .f-link { display: block; width: 100%; margin-top: 12px; background: none; border: 0; color: var(--accent); font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
         .f-link:hover { text-decoration: underline; }
         .f-link:disabled { opacity: 0.5; cursor: default; }
-
-        .f-main.done { text-align: center; max-width: 560px; }
-        .done-check { width: 64px; height: 64px; border-radius: 50%; background: var(--good); display: inline-grid; place-items: center; margin-bottom: 20px; }
-        .done-card { text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px; }
-        .done-h { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
-        .done-list { margin: 0; padding-left: 18px; color: var(--muted); display: grid; gap: 8px; font-size: 15.5px; }
       `}</style>
     </>
   );
