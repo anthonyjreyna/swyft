@@ -59,6 +59,7 @@ export default function Home() {
           } catch (e) {}
 
           if (mapRef.current) {
+            mapRef.current.style.display = "block";
             mapObj.current = new g.maps.Map(mapRef.current, {
               center: { lat: 39.5, lng: -98.35 },
               zoom: 4,
@@ -66,7 +67,11 @@ export default function Home() {
               disableDefaultUI: true,
               gestureHandling: "cooperative",
             });
-            mapRef.current.style.display = "block";
+            setTimeout(() => {
+              if (cancelled || !mapObj.current) return;
+              g.maps.event.trigger(mapObj.current, "resize");
+              mapObj.current.setCenter({ lat: 39.5, lng: -98.35 });
+            }, 250);
           }
 
           let places = null;
@@ -112,7 +117,9 @@ export default function Home() {
           pac.addEventListener("gmp-select", onSelect);
           pac.addEventListener("gmp-placeselect", onSelect);
         })
-        .catch(() => {});
+        .catch((err) => {
+          console.warn("[funnel] Google Maps failed to initialize:", err);
+        });
     }
 
     return () => {
