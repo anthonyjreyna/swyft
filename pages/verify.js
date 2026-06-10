@@ -87,7 +87,7 @@ export default function Verify() {
   return (
     <>
       <Head>
-        <title>Verify your phone — HomeOffer</title>
+        <title>Verify your phone — Swyft</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className="funnel">
@@ -148,7 +148,7 @@ export default function Verify() {
         </main>
 
         <footer className="f-foot">
-          {"\u00A9"} {new Date().getFullYear()} HomeOffer {"\u00B7"} Placeholder brand {"\u2014"} rename anytime.
+          {"\u00A9"} {new Date().getFullYear()} Swyft Home Buyers {"\u00B7"} Perris &amp; the Inland Empire
         </footer>
       </div>
     </>
