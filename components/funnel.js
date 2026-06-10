@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
 const STORE_KEY = "offer_funnel_v1";
 export const TOTAL_STEPS = 7;
 
 // Replace this with your real phone number (keep the +1 and digits only).
 const CALL_NUMBER = "+15555555555";
+const MAPS_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
 export function getAnswers() {
   if (typeof window === "undefined") return {};
@@ -47,6 +49,36 @@ export function BackLink() {
     <button className="f-back" type="button" onClick={() => router.back()}>
       {"\u2190"} Back
     </button>
+  );
+}
+
+// Static satellite thumbnail of the selected home, shown on every step after 1.
+export function HomeImage() {
+  const [pos, setPos] = useState(null);
+  useEffect(() => {
+    const a = getAnswers();
+    if (a.lat != null && a.lng != null) {
+      setPos({ lat: a.lat, lng: a.lng, address: a.address || "" });
+    }
+  }, []);
+  if (!pos || !MAPS_KEY) return null;
+  const src =
+    "https://maps.googleapis.com/maps/api/staticmap?center=" +
+    pos.lat + "," + pos.lng +
+    "&zoom=19&size=600x180&scale=2&maptype=hybrid&markers=color:red%7C" +
+    pos.lat + "," + pos.lng +
+    "&key=" + MAPS_KEY;
+  return (
+    <div style={{ marginTop: 16 }}>
+      <img
+        src={src}
+        alt={"Satellite view of " + (pos.address || "your home")}
+        style={{ width: "100%", height: 160, objectFit: "cover", borderRadius: 12, border: "1px solid var(--line)", display: "block" }}
+      />
+      {pos.address ? (
+        <div style={{ fontSize: 13, color: "var(--muted)", marginTop: 8, textAlign: "center" }}>{pos.address}</div>
+      ) : null}
+    </div>
   );
 }
 
@@ -97,6 +129,7 @@ export function FunnelLayout({ step, title, subtitle, children }) {
         <div className="f-stepno">Step {step} of {TOTAL_STEPS}</div>
         <h1 className="f-title">{title}</h1>
         {subtitle ? <p className="f-sub">{subtitle}</p> : null}
+        {step > 1 ? <HomeImage /> : null}
         <div className="f-card">{children}</div>
         <CallNow />
       </main>
