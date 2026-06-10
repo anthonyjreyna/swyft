@@ -38,8 +38,16 @@ export function Brand() {
   );
 }
 
-export function FunnelLayout({ step, title, subtitle, children, showBack = true }) {
+export function BackLink() {
   const router = useRouter();
+  return (
+    <button className="f-back" type="button" onClick={() => router.back()}>
+      {"\u2190"} Back
+    </button>
+  );
+}
+
+export function FunnelLayout({ step, title, subtitle, children }) {
   const pct = Math.round((step / TOTAL_STEPS) * 100);
   return (
     <div className="funnel">
@@ -53,11 +61,6 @@ export function FunnelLayout({ step, title, subtitle, children, showBack = true 
       </div>
 
       <main className="f-main">
-        {showBack ? (
-          <button className="f-back" type="button" onClick={() => router.back()}>
-            {"\u2190"} Back
-          </button>
-        ) : null}
         <div className="f-stepno">Step {step} of {TOTAL_STEPS}</div>
         <h1 className="f-title">{title}</h1>
         {subtitle ? <p className="f-sub">{subtitle}</p> : null}
@@ -78,13 +81,16 @@ export function Choices({ name, options, next }) {
     router.push(next);
   };
   return (
-    <div className="choices">
-      {options.map((o) => (
-        <button className="choice" key={o} type="button" onClick={() => pick(o)}>
-          <span>{o}</span>
-          <span className="choice-arrow">{"\u2192"}</span>
-        </button>
-      ))}
-    </div>
+    <>
+      <div className="choices">
+        {options.map((o) => (
+          <button className="choice" key={o} type="button" onClick={() => pick(o)}>
+            <span>{o}</span>
+            <span className="choice-arrow">{"\u2192"}</span>
+          </button>
+        ))}
+      </div>
+      <BackLink />
+    </>
   );
 }
