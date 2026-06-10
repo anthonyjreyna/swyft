@@ -20,7 +20,7 @@ export default function Step8() {
     const ctx = canvas.getContext("2d");
     let W = (canvas.width = window.innerWidth);
     let H = (canvas.height = window.innerHeight);
-    const colors = ["#2563eb", "#16a34a", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4"];
+    const colors = ["#0057B8", "#16a34a", "#FFC421", "#ef4444", "#8b5cf6", "#06b6d4"];
     const parts = [];
     for (let i = 0; i < 150; i++) {
       parts.push({
@@ -77,7 +77,7 @@ export default function Step8() {
 
   return (
     <>
-      <Head><title>Thank you — HomeOffer</title><meta name="viewport" content="width=device-width, initial-scale=1" /></Head>
+      <Head><title>Thank you — Swyft</title><meta name="viewport" content="width=device-width, initial-scale=1" /></Head>
       <div className="funnel">
         <header className="f-head">
           <Brand />
@@ -106,7 +106,7 @@ export default function Step8() {
         </main>
 
         <footer className="f-foot">
-          {"\u00A9"} {new Date().getFullYear()} HomeOffer {"\u00B7"} Placeholder brand {"\u2014"} rename anytime.
+          {"\u00A9"} {new Date().getFullYear()} Swyft Home Buyers {"\u00B7"} Perris &amp; the Inland Empire
         </footer>
       </div>
     </>
