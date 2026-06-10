@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }) {
         .f-bar { height: 100%; background: var(--accent); transition: width 0.35s ease; }
 
         .f-main { flex: 1; max-width: 560px; margin: 0 auto; width: 100%; padding: 38px 22px 50px; }
-        .f-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; color: var(--muted); font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; padding: 0; margin-bottom: 14px; }
+        .f-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; color: var(--muted); font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; padding: 0; margin-top: 16px; width: 100%; justify-content: center; }
         .f-back:hover { color: var(--accent); }
         .f-stepno { font-size: 13px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
         .f-title { font-size: clamp(26px, 5vw, 36px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; }
@@ -80,6 +80,29 @@ export default function App({ Component, pageProps }) {
         .f-link { display: block; width: 100%; margin-top: 12px; background: none; border: 0; color: var(--accent); font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
         .f-link:hover { text-decoration: underline; }
         .f-link:disabled { opacity: 0.5; cursor: default; }
+
+        /* Call Now + live agents — mobile only */
+        .f-call { display: none; }
+        @media (max-width: 640px) {
+          .f-call { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 26px; }
+        }
+        .f-callbtn {
+          display: inline-flex; align-items: center; gap: 9px; background: var(--good); color: #fff;
+          font-weight: 700; font-size: 16.5px; padding: 14px 30px; border-radius: 999px;
+          box-shadow: 0 10px 24px -14px rgba(22, 163, 74, 0.8);
+        }
+        .f-callbtn:active { transform: translateY(1px); }
+        .f-agents { display: flex; align-items: center; gap: 11px; }
+        .f-avs { display: inline-flex; }
+        .f-av {
+          width: 34px; height: 34px; border-radius: 50%; border: 2px solid #fff;
+          display: inline-flex; align-items: center; justify-content: center;
+          margin-left: -10px; box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+        }
+        .f-av:first-child { margin-left: 0; }
+        .f-agents-txt { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 600; color: var(--muted); }
+        .f-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--good); display: inline-block; animation: fpulse 1.6s ease-in-out infinite; }
+        @keyframes fpulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
       `}</style>
     </>
   );
