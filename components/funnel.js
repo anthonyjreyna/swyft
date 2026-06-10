@@ -4,6 +4,9 @@ import { useRouter } from "next/router";
 const STORE_KEY = "offer_funnel_v1";
 export const TOTAL_STEPS = 7;
 
+// Replace this with your real phone number (keep the +1 and digits only).
+const CALL_NUMBER = "+15555555555";
+
 export function getAnswers() {
   if (typeof window === "undefined") return {};
   try {
@@ -47,6 +50,36 @@ export function BackLink() {
   );
 }
 
+function PersonIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+      <circle cx="12" cy="9" r="4" />
+      <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z" />
+    </svg>
+  );
+}
+
+export function CallNow() {
+  return (
+    <div className="f-call">
+      <a className="f-callbtn" href={`tel:${CALL_NUMBER}`}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20 15.5c-1.2 0-2.4-.2-3.5-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1C8.7 8.4 8.5 7.2 8.5 6c0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1z" />
+        </svg>
+        Call Now
+      </a>
+      <div className="f-agents">
+        <span className="f-avs">
+          <span className="f-av" style={{ background: "#6366f1" }}><PersonIcon /></span>
+          <span className="f-av" style={{ background: "#0ea5e9" }}><PersonIcon /></span>
+          <span className="f-av" style={{ background: "#14b8a6" }}><PersonIcon /></span>
+        </span>
+        <span className="f-agents-txt"><span className="f-dot" />Live Agents Ready</span>
+      </div>
+    </div>
+  );
+}
+
 export function FunnelLayout({ step, title, subtitle, children }) {
   const pct = Math.round((step / TOTAL_STEPS) * 100);
   return (
@@ -65,6 +98,7 @@ export function FunnelLayout({ step, title, subtitle, children }) {
         <h1 className="f-title">{title}</h1>
         {subtitle ? <p className="f-sub">{subtitle}</p> : null}
         <div className="f-card">{children}</div>
+        <CallNow />
       </main>
 
       <footer className="f-foot">
