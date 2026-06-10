@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { FunnelLayout, getAnswers, setAnswer } from "../components/funnel";
+import { FunnelLayout, setAnswer, BackLink } from "../components/funnel";
 
 export default function Step7() {
   const [f, setF] = useState({ name: "", email: "", phone: "" });
@@ -38,6 +38,7 @@ export default function Step7() {
             {busy ? "\u2026" : "Continue \u2192"}
           </button>
         </form>
+        <BackLink />
       </FunnelLayout>
     </>
   );
