@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { FunnelLayout, setAnswer, BackLink } from "../components/funnel";
+import { FunnelLayout, getAnswers, setAnswer } from "../components/funnel";
 
 export default function Step7() {
   const [f, setF] = useState({ name: "", email: "", phone: "" });
@@ -21,7 +21,7 @@ export default function Step7() {
 
   return (
     <>
-      <Head><title>Your cash offer — HomeOffer</title><meta name="viewport" content="width=device-width, initial-scale=1" /></Head>
+      <Head><title>Your cash offer — Swyft</title><meta name="viewport" content="width=device-width, initial-scale=1" /></Head>
       <FunnelLayout
         step={7}
         title="Where should we send your cash offer?"
@@ -38,7 +38,6 @@ export default function Step7() {
             {busy ? "\u2026" : "Continue \u2192"}
           </button>
         </form>
-        <BackLink />
       </FunnelLayout>
     </>
   );
