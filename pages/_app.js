@@ -4,18 +4,20 @@ export default function App({ Component, pageProps }) {
       <Component {...pageProps} />
       <style jsx global>{`
         :root {
-          --ink: #0f1f33;
-          --muted: #5b6b7d;
-          --line: #e4e9f0;
-          --accent: #2563eb;
-          --accent-deep: #1d4ed8;
-          --bg: #f5f8fc;
+          --ink: #16191D;
+          --muted: #545B63;
+          --line: #DEE4EC;
+          --accent: #0057B8;
+          --accent-deep: #00366E;
+          --bg: #FAFBFD;
           --card: #ffffff;
           --good: #16a34a;
+          --gold: #FFC421;
+          --gold-deep: #EBAE00;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-          font-family: "Inter", system-ui, -apple-system, sans-serif;
+          font-family: "Figtree", system-ui, -apple-system, sans-serif;
           background: var(--bg);
           color: var(--ink);
           line-height: 1.6;
@@ -28,11 +30,8 @@ export default function App({ Component, pageProps }) {
           display: flex; align-items: center; justify-content: space-between;
           padding: 16px 22px; max-width: 760px; margin: 0 auto; width: 100%;
         }
-        .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 800; font-size: 19px; letter-spacing: -0.01em; }
-        .brand-mark {
-          width: 30px; height: 30px; border-radius: 8px; background: var(--accent);
-          display: inline-flex; align-items: center; justify-content: center;
-        }
+        .brand { display: inline-flex; align-items: center; gap: 10px; font-family: "Bricolage Grotesque", Georgia, serif; font-weight: 700; font-size: 21px; letter-spacing: -0.01em; color: var(--accent); }
+        .brand-mark { width: 30px; height: 30px; display: block; }
         .f-secure { font-size: 12.5px; color: var(--muted); font-weight: 500; }
 
         .f-progress { height: 6px; background: #e7edf5; max-width: 760px; margin: 0 auto; width: calc(100% - 0px); border-radius: 999px; overflow: hidden; }
@@ -42,7 +41,7 @@ export default function App({ Component, pageProps }) {
         .f-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; color: var(--muted); font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; padding: 0; margin-top: 16px; width: 100%; justify-content: center; }
         .f-back:hover { color: var(--accent); }
         .f-stepno { font-size: 13px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
-        .f-title { font-size: clamp(26px, 5vw, 36px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; }
+        .f-title { font-family: "Bricolage Grotesque", Georgia, serif; font-size: clamp(26px, 5vw, 36px); font-weight: 700; color: var(--accent); letter-spacing: -0.02em; line-height: 1.12; }
         .f-sub { color: var(--muted); font-size: 17px; margin-top: 12px; }
         .f-card { margin-top: 26px; }
 
@@ -67,11 +66,11 @@ export default function App({ Component, pageProps }) {
         .f-map { width: 100%; height: 230px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); margin-bottom: 16px; background: #eef2f6; }
         gmp-place-autocomplete { width: 100%; display: block; }
         .f-btn {
-          width: 100%; margin-top: 20px; background: var(--accent); color: #fff;
-          border: 0; border-radius: 12px; padding: 16px; font-size: 16.5px; font-weight: 700;
+          width: 100%; margin-top: 20px; background: var(--gold); color: #14181D;
+          border: 0; border-radius: 999px; padding: 16px; font-size: 16.5px; font-weight: 600;
           font-family: inherit; cursor: pointer; transition: background 0.15s ease, transform 0.1s ease;
         }
-        .f-btn:hover { background: var(--accent-deep); }
+        .f-btn:hover { background: var(--gold-deep); }
         .f-btn:active { transform: translateY(1px); }
         .f-btn:disabled { opacity: 0.6; cursor: default; }
 
