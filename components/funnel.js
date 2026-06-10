@@ -6,7 +6,7 @@ const STORE_KEY = "offer_funnel_v1";
 export const TOTAL_STEPS = 7;
 
 // Replace this with your real phone number (keep the +1 and digits only).
-const CALL_NUMBER = "+15555555555";
+const CALL_NUMBER = "+19515550190";
 const MAPS_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
 export function getAnswers() {
@@ -32,13 +32,11 @@ export function clearAnswers() {
 export function Brand() {
   return (
     <Link className="brand" href="/">
-      <span className="brand-mark" aria-hidden="true">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M3 11l9-7 9 7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M5 10v9h14v-9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </span>
-      HomeOffer
+      <svg className="brand-mark" width="30" height="30" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="24" fill="#0057B8" />
+        <path d="M28 11 L16.5 26.5 h7 L20 37 L31.5 21.5 h-7 Z" fill="#fff" stroke="#fff" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round" />
+      </svg>
+      Swyft
     </Link>
   );
 }
@@ -135,7 +133,7 @@ export function FunnelLayout({ step, title, subtitle, children }) {
       </main>
 
       <footer className="f-foot">
-        {"\u00A9"} {new Date().getFullYear()} HomeOffer {"\u00B7"} Placeholder brand {"\u2014"} rename anytime.
+        {"\u00A9"} {new Date().getFullYear()} Swyft Home Buyers {"\u00B7"} Perris &amp; the Inland Empire
       </footer>
     </div>
   );
