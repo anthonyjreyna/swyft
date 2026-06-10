@@ -5,14 +5,11 @@ import { FunnelLayout, setAnswer } from "../components/funnel";
 
 const KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
-// Official-style Google Maps loader: defines google.maps.importLibrary, which
-// resolves only once the API is genuinely ready. This avoids the "works only
-// after refresh" race caused by using a plain script onload.
 function bootstrapMaps(key) {
   const w = window;
   w.google = w.google || {};
   const maps = (w.google.maps = w.google.maps || {});
-  if (maps.importLibrary) return; // already set up
+  if (maps.importLibrary) return;
   const libs = new Set();
   let loadPromise = null;
   const load = () => {
@@ -103,14 +100,24 @@ export default function Home() {
             if (addr) selectedRef.current = addr;
 
             const loc = place.location;
-            if (loc && mapObj.current) {
-              mapObj.current.setMapTypeId("hybrid");
-              mapObj.current.panTo(loc);
-              mapObj.current.setZoom(19);
-              if (!markerObj.current) {
-                markerObj.current = new g.maps.Marker({ map: mapObj.current, position: loc });
-              } else {
-                markerObj.current.setPosition(loc);
+            let lat = null;
+            let lng = null;
+            if (loc) {
+              lat = typeof loc.lat === "function" ? loc.lat() : loc.lat;
+              lng = typeof loc.lng === "function" ? loc.lng() : loc.lng;
+            }
+            if (lat != null && lng != null) {
+              setAnswer("lat", lat);
+              setAnswer("lng", lng);
+              if (mapObj.current) {
+                mapObj.current.setMapTypeId("hybrid");
+                mapObj.current.panTo({ lat, lng });
+                mapObj.current.setZoom(19);
+                if (!markerObj.current) {
+                  markerObj.current = new g.maps.Marker({ map: mapObj.current, position: { lat, lng } });
+                } else {
+                  markerObj.current.setPosition({ lat, lng });
+                }
               }
             }
           };
