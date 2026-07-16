@@ -223,6 +223,12 @@ footer.site{background:var(--pine-deep);color:#A8A69E;padding:56px 0 110px;font-
 .foot-grid a:hover{color:#fff}
 .foot-legal{border-top:1px solid rgba(255,255,255,.12);padding-top:24px;font-size:13px;line-height:1.7;color:#83817A}
 
+/* ---------- join our team pill ---------- */
+.team-pill{display:inline-flex;align-items:center;gap:9px;background:rgba(63,191,88,.13);color:#A6DBAE;font-weight:600;font-size:15px;padding:12px 22px;border-radius:999px;text-decoration:none;margin-top:18px;border:1px solid rgba(63,191,88,.28);transition:background .15s ease,border-color .15s ease}
+.team-pill:hover{background:rgba(63,191,88,.22);border-color:rgba(63,191,88,.5);color:#C4EBC9}
+.team-pill .dot{width:10px;height:10px;border-radius:50%;background:#3FBF58;display:inline-block;flex:none;animation:tpulse 2s ease-in-out infinite}
+@keyframes tpulse{0%,100%{box-shadow:0 0 0 0 rgba(63,191,88,.45)}50%{box-shadow:0 0 0 6px rgba(63,191,88,0)}}
+
 /* ---------- mobile call bar ---------- */
 .callbar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:60;background:#fff;border-top:1px solid var(--line);padding:10px 14px;gap:10px;box-shadow:0 -8px 24px rgba(0,0,0,.10)}
 .callbar a{flex:1;text-align:center;font-size:15px;padding:13px 10px}
@@ -552,6 +558,7 @@ footer.site{background:var(--pine-deep);color:#A8A69E;padding:56px 0 110px;font-
           <span class="wordmark">SWYFT</span>
         </a>
         <p style="margin-top:12px;max-width:34ch">Fast, fair, and local. Swyft buys houses for cash across Riverside and San Bernardino counties — at the speed life actually moves.</p>
+        <a class="team-pill" href="mailto:hello@swyfthomebuyers.com?subject=Join%20the%20Swyft%20team"><span class="dot" aria-hidden="true"></span>Join our team</a>
       </div>
       <div>
         <h4>Sellers</h4>
