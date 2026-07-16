@@ -102,7 +102,7 @@ export function CallNow() {
         <span className="f-avs">
           <span className="f-av" style={{ background: "#6366f1" }}><PersonIcon /></span>
           <span className="f-av" style={{ background: "#0ea5e9" }}><PersonIcon /></span>
-          <span className="f-av" style={{ background: "#14b8a6" }}><PersonIcon /></span>
+          <span className="f-av" style={{ background: "#3A6BA5" }}><PersonIcon /></span>
         </span>
         <span className="f-agents-txt"><span className="f-dot" />Live Agents Ready</span>
       </div>

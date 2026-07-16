@@ -20,7 +20,7 @@ export default function Step8() {
     const ctx = canvas.getContext("2d");
     let W = (canvas.width = window.innerWidth);
     let H = (canvas.height = window.innerHeight);
-    const colors = ["#0057B8", "#16a34a", "#FFC421", "#ef4444", "#8b5cf6", "#06b6d4"];
+    const colors = ["#6FA3DC", "#00479A", "#0057B8", "#ef4444", "#8b5cf6", "#06b6d4"];
     const parts = [];
     for (let i = 0; i < 150; i++) {
       parts.push({

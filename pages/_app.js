@@ -4,16 +4,18 @@ export default function App({ Component, pageProps }) {
       <Component {...pageProps} />
       <style jsx global>{`
         :root {
-          --ink: #16191D;
-          --muted: #545B63;
-          --line: #DEE4EC;
-          --accent: #0057B8;
-          --accent-deep: #00366E;
-          --bg: #FAFBFD;
+          --ink: #191C20;
+          --muted: #5B5E63;
+          --line: #E6E2D8;
+          --accent: #191C20;
+          --gold-ink: #3A6BA5;
+          --brand: #0057B8;
+          --accent-deep: #101215;
+          --bg: #FBFAF6;
           --card: #ffffff;
-          --good: #16a34a;
-          --gold: #FFC421;
-          --gold-deep: #EBAE00;
+          --good: #0057B8;
+          --gold: #0057B8;
+          --gold-deep: #00479A;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -30,17 +32,17 @@ export default function App({ Component, pageProps }) {
           display: flex; align-items: center; justify-content: space-between;
           padding: 16px 22px; max-width: 760px; margin: 0 auto; width: 100%;
         }
-        .brand { display: inline-flex; align-items: center; gap: 10px; font-family: "Bricolage Grotesque", Georgia, serif; font-weight: 700; font-size: 21px; letter-spacing: -0.01em; color: var(--accent); }
+        .brand { display: inline-flex; align-items: center; gap: 10px; font-family: "Bricolage Grotesque", Georgia, serif; font-weight: 700; font-size: 21px; letter-spacing: -0.01em; color: var(--brand); }
         .brand-mark { width: 30px; height: 30px; display: block; }
         .f-secure { font-size: 12.5px; color: var(--muted); font-weight: 500; }
 
-        .f-progress { height: 6px; background: #e7edf5; max-width: 760px; margin: 0 auto; width: calc(100% - 0px); border-radius: 999px; overflow: hidden; }
-        .f-bar { height: 100%; background: var(--accent); transition: width 0.35s ease; }
+        .f-progress { height: 6px; background: #EEEBE2; max-width: 760px; margin: 0 auto; width: calc(100% - 0px); border-radius: 999px; overflow: hidden; }
+        .f-bar { height: 100%; background: #6FA3DC; transition: width 0.35s ease; }
 
         .f-main { flex: 1; max-width: 560px; margin: 0 auto; width: 100%; padding: 38px 22px 50px; }
         .f-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; color: var(--muted); font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; padding: 0; margin-top: 16px; width: 100%; justify-content: center; }
         .f-back:hover { color: var(--accent); }
-        .f-stepno { font-size: 13px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+        .f-stepno { font-size: 13px; font-weight: 600; color: var(--gold-ink); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
         .f-title { font-family: "Bricolage Grotesque", Georgia, serif; font-size: clamp(26px, 5vw, 36px); font-weight: 700; color: var(--accent); letter-spacing: -0.02em; line-height: 1.12; }
         .f-sub { color: var(--muted); font-size: 17px; margin-top: 12px; }
         .f-card { margin-top: 26px; }
@@ -53,8 +55,8 @@ export default function App({ Component, pageProps }) {
           font-size: 16.5px; font-weight: 600; font-family: inherit; cursor: pointer;
           transition: border-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
         }
-        .choice:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 10px 24px -16px rgba(37, 99, 235, 0.6); }
-        .choice-arrow { color: var(--accent); font-weight: 700; }
+        .choice:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 10px 24px -16px rgba(23, 25, 29, 0.12); }
+        .choice-arrow { color: var(--gold-ink); font-weight: 700; }
 
         .f-label { display: block; font-size: 13.5px; font-weight: 700; color: var(--ink); margin: 14px 0 7px; }
         .f-input {
@@ -63,10 +65,10 @@ export default function App({ Component, pageProps }) {
         }
         .f-input:focus { outline: none; border-color: var(--accent); }
         .addrbox { width: 100%; }
-        .f-map { width: 100%; height: 230px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); margin-bottom: 16px; background: #eef2f6; }
+        .f-map { width: 100%; height: 230px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); margin-bottom: 16px; background: #F0EDE5; }
         gmp-place-autocomplete { width: 100%; display: block; }
         .f-btn {
-          width: 100%; margin-top: 20px; background: var(--gold); color: #14181D;
+          width: 100%; margin-top: 20px; background: var(--gold); color: #fff;
           border: 0; border-radius: 999px; padding: 16px; font-size: 16.5px; font-weight: 600;
           font-family: inherit; cursor: pointer; transition: background 0.15s ease, transform 0.1s ease;
         }
@@ -88,7 +90,7 @@ export default function App({ Component, pageProps }) {
         .f-callbtn {
           display: inline-flex; align-items: center; gap: 9px; background: var(--good); color: #fff;
           font-weight: 700; font-size: 16.5px; padding: 14px 30px; border-radius: 999px;
-          box-shadow: 0 10px 24px -14px rgba(22, 163, 74, 0.8);
+          box-shadow: 0 10px 24px -14px rgba(0, 87, 184, 0.55);
         }
         .f-callbtn:active { transform: translateY(1px); }
         .f-agents { display: flex; align-items: center; gap: 11px; }
