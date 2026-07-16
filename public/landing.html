@@ -109,6 +109,12 @@ header{position:sticky;top:0;z-index:50;background:rgba(253,251,246,.94);backdro
 .ticket .btn{width:100%;margin-top:20px}
 .ticket-note{font-size:13px;color:var(--ink-soft);text-align:center;margin-top:12px}
 .ticket-note svg{width:13px;height:13px;vertical-align:-2px}
+.hero-map{width:100%;height:185px;border-radius:10px;overflow:hidden;border:1px solid var(--line);margin:14px 0 4px;background:var(--sand);display:none}
+.hero-label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px;color:var(--ink)}
+.hero-addr{width:100%}
+.hero-addr gmp-place-autocomplete{width:100%;display:block}
+.hero-input{width:100%;padding:14px 16px;font-family:var(--body);font-size:16px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+.hero-input:focus{border-color:var(--teal);outline:none;box-shadow:0 0 0 3px var(--teal-soft)}
 .f-step2,.f-done{display:none}
 .f-done{text-align:center;padding:28px 6px}
 .f-done h3{font-size:24px;margin:14px 0 8px}
@@ -301,12 +307,15 @@ footer.site{background:var(--pine-deep);color:#A8A69E;padding:56px 0 110px;font-
     <div class="ticket">
       <div class="ticket-head">
         <strong>Your Swyft cash offer</strong>
-        <span class="ticket-step">2 minutes</span>
+        <span class="ticket-step">Step 1 of 7</span>
       </div>
-      <p style="color:var(--ink-soft);margin:6px 0 4px">Answer a few quick questions about your property and get a fair, no-obligation cash offer. See your home on the map as you go.</p>
-      <a class="btn btn-coral" href="/start" style="width:100%;margin-top:18px">Get my cash offer
+      <div id="heroMap" class="hero-map" aria-hidden="true"></div>
+      <label class="hero-label" for="heroAddrInput">Property address</label>
+      <div id="heroAddr" class="hero-addr"><input id="heroAddrInput" class="hero-input" placeholder="123 Main St, City, State" autocomplete="off"></div>
+      <p class="err" id="heroErr">Please enter your property address.</p>
+      <button class="btn btn-coral" id="heroNext" type="button" style="width:100%;margin-top:16px">Next
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
+      </button>
       <p class="ticket-note">
         <svg viewBox="0 0 24 24" fill="none" stroke="#56635C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
         Takes 2 minutes. No obligation, no spam — your info stays with us.
@@ -629,6 +638,86 @@ footer.site{background:var(--pine-deep);color:#A8A69E;padding:56px 0 110px;font-
     var tl=document.querySelector('.timeline');
     if(tl){var io2=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){document.getElementById('tfill').style.width='100%';io2.disconnect();}});},{threshold:0.3});io2.observe(tl);}
   }
+})();
+</script>
+<script>
+(function(){
+  var KEY="", selectedAddr="", lat=null, lng=null, mapObj=null, markerObj=null;
+  var box=document.getElementById('heroAddr'), mapEl=document.getElementById('heroMap');
+  var errEl=document.getElementById('heroErr'), nextBtn=document.getElementById('heroNext');
+  var STORE='offer_funnel_v1';
+
+  function setAns(k,v){try{var a=JSON.parse(sessionStorage.getItem(STORE)||'{}');a[k]=v;sessionStorage.setItem(STORE,JSON.stringify(a));}catch(e){}}
+
+  function bootstrapMaps(key){
+    var w=window;w.google=w.google||{};var maps=(w.google.maps=w.google.maps||{});
+    if(maps.importLibrary)return;
+    var libs=new Set(),loadPromise=null;
+    var load=function(){
+      if(loadPromise)return loadPromise;
+      loadPromise=new Promise(function(resolve,reject){
+        var p=new URLSearchParams();p.set('key',key);p.set('v','weekly');
+        p.set('libraries',Array.from(libs).join(','));p.set('callback','google.maps.__ib__');
+        maps.__ib__=resolve;
+        var s=document.createElement('script');
+        s.src='https://maps.googleapis.com/maps/api/js?'+p.toString();s.async=true;
+        s.onerror=function(){reject(new Error('maps failed'))};
+        document.head.appendChild(s);
+      });
+      return loadPromise;
+    };
+    maps.importLibrary=function(name){libs.add(name);return load().then(function(){return maps.importLibrary(name)})};
+  }
+
+  function initMaps(){
+    if(!KEY)return;
+    bootstrapMaps(KEY);
+    var g=window.google;
+    g.maps.importLibrary('maps').then(function(m){
+      mapEl.style.display='block';
+      mapObj=new m.Map(mapEl,{center:{lat:39.5,lng:-98.35},zoom:4,mapTypeId:'roadmap',disableDefaultUI:true,gestureHandling:'cooperative'});
+      setTimeout(function(){if(mapObj){g.maps.event.trigger(mapObj,'resize');mapObj.setCenter({lat:39.5,lng:-98.35});}},250);
+      return g.maps.importLibrary('places');
+    }).then(function(p){
+      var pac=new p.PlaceAutocompleteElement();
+      pac.style.width='100%';
+      box.innerHTML='';box.appendChild(pac);
+      var onSelect=function(ev){
+        var place=ev.place||(ev.placePrediction&&ev.placePrediction.toPlace&&ev.placePrediction.toPlace());
+        if(!place)return;
+        var done=function(){
+          var addr=place.formattedAddress||'';
+          if(addr)selectedAddr=addr;
+          var loc=place.location;
+          if(loc){
+            lat=typeof loc.lat==='function'?loc.lat():loc.lat;
+            lng=typeof loc.lng==='function'?loc.lng():loc.lng;
+            if(lat!=null&&lng!=null&&mapObj){
+              mapObj.setMapTypeId('hybrid');mapObj.panTo({lat:lat,lng:lng});mapObj.setZoom(19);
+              if(!markerObj){markerObj=new window.google.maps.Marker({map:mapObj,position:{lat:lat,lng:lng}});}
+              else{markerObj.setPosition({lat:lat,lng:lng});}
+            }
+          }
+        };
+        if(place.fetchFields){place.fetchFields({fields:['formattedAddress','location']}).then(done).catch(done);}else{done();}
+      };
+      pac.addEventListener('gmp-select',onSelect);
+      pac.addEventListener('gmp-placeselect',onSelect);
+    }).catch(function(err){console.warn('[hero] maps init failed:',err)});
+  }
+
+  fetch('/api/maps-key').then(function(r){return r.json()}).then(function(d){KEY=(d&&d.key)||'';initMaps();}).catch(function(){});
+
+  nextBtn.addEventListener('click',function(){
+    var addr=selectedAddr;
+    if(!addr){var inp=box.querySelector('input');addr=inp?inp.value.trim():'';}
+    if(!addr){errEl.style.display='block';return;}
+    errEl.style.display='none';
+    setAns('address',addr);
+    if(lat!=null)setAns('lat',lat);
+    if(lng!=null)setAns('lng',lng);
+    window.location.href='/step-2';
+  });
 })();
 </script>
 </body>
