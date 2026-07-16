@@ -55,3 +55,4 @@ in the Firebase console (Firestore -> Data -> leads). No login needed in the app
 ## Rename the brand
 "HomeOffer" lives in `components/funnel.js` (Brand + footer) and the page
 titles. Swap it for your real name when ready.
+
