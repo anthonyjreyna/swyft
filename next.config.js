@@ -5,6 +5,7 @@ module.exports = {
       { source: "/", destination: "/landing.html" },
       { source: "/careers", destination: "/careers.html" },
       { source: "/talent", destination: "/talent.html" },
+      { source: "/talent-video", destination: "/talent-video.html" },
     ];
   },
 };
