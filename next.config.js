@@ -6,6 +6,7 @@ module.exports = {
       { source: "/careers", destination: "/careers.html" },
       { source: "/talent", destination: "/talent.html" },
       { source: "/talent-video", destination: "/talent-video.html" },
+      { source: "/talent-interview", destination: "/talent-interview.html" },
     ];
   },
 };
