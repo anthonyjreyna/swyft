@@ -87,6 +87,7 @@ export default function App({ Component, pageProps }) {
         .f-guarantee-txt span { font-size: 12.5px; color: var(--muted); }
         .f-agent { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 18px; font-size: 14.5px; color: var(--muted); }
         .f-agent b { color: var(--ink); }
+        .f-agent-photo { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; flex: none; border: 2px solid #fff; box-shadow: 0 0 0 2px var(--line); }
         .f-agent-av { width: 44px; height: 44px; border-radius: 50%; background: var(--brand); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; flex: none; letter-spacing: .02em; }
         .f-consent { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 16px; }
         .f-btn {

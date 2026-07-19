@@ -134,7 +134,7 @@ export default function Step8() {
             </>
           ) : null}
           <div className="f-agent" style={{ marginTop: 22, marginBottom: 0 }}>
-            <span className="f-agent-av" aria-hidden="true">AR</span>
+            <img className="f-agent-photo" src="/anthony.jpg" alt="Anthony from Swyft" />
             <span><b>Anthony</b> will personally call you shortly from a local (951) number \u2014 keep an eye on your phone.</span>
           </div>
           <a className="done-call" href="tel:+19515550190" ref={callRef}>
