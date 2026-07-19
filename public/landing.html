@@ -83,6 +83,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(253,251,246,.94);backdro
 .hero .wrap{position:relative;z-index:2}
 @media (max-width:960px){.hero-scrim{background:rgba(251,250,246,.93)}}
 @media (prefers-reduced-motion:reduce){.hero-media{display:none}}
+@media (min-width:961px){.ticket-col{margin-left:28px;margin-right:-12px}}
 .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center}
 .hero h1{font-size:clamp(38px,5.4vw,58px);font-weight:700;margin-bottom:18px}
 .hero h1 em{font-style:normal;color:var(--teal);position:relative;white-space:nowrap}
@@ -107,8 +108,16 @@ header{position:sticky;top:0;z-index:50;background:rgba(253,251,246,.94);backdro
 .ticket input,.ticket select{width:100%;padding:14px 16px;font-family:var(--body);font-size:16px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
 .ticket input:focus,.ticket select:focus{border-color:var(--teal);outline:none;box-shadow:0 0 0 3px var(--teal-soft)}
 .ticket .btn{width:100%;margin-top:20px}
+.ticket .btn,.hero .ticket #heroNext{border-radius:12px}
 .ticket-note{font-size:13px;color:var(--ink-soft);text-align:center;margin-top:12px}
 .ticket-note svg{width:13px;height:13px;vertical-align:-2px}
+.ticket-trust{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;border-top:2px dashed var(--line);margin-top:16px;padding-top:14px}
+.tt-item{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-soft)}
+.tt-item svg{width:15px;height:15px;flex:none;color:var(--teal)}
+.optout{display:inline-flex;align-items:center;gap:7px;background:var(--teal-soft);border:1px solid rgba(58,107,165,.25);color:var(--pine);font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:999px;margin-top:12px}
+.optout svg{width:14px;height:14px;color:var(--teal)}
+.ticket-quote{margin-top:14px;text-align:center;font-size:13.5px;color:var(--ink-soft);font-style:italic}
+.ticket-quote b{font-style:normal;color:var(--pine);font-weight:600}
 .hero-map{width:100%;height:185px;border-radius:10px;overflow:hidden;border:1px solid var(--line);margin:14px 0 4px;background:var(--sand);display:none}
 .hero-label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px;color:var(--ink)}
 .hero-addr{width:100%}
@@ -304,6 +313,7 @@ footer.site{background:var(--pine-deep);color:#A8A69E;padding:56px 0 110px;font-
     </div>
 
     <!-- Signature element: the offer ticket -->
+    <div class="ticket-col">
     <div class="ticket">
       <div class="ticket-head">
         <strong>Your Swyft cash offer</strong>
@@ -320,6 +330,16 @@ footer.site{background:var(--pine-deep);color:#A8A69E;padding:56px 0 110px;font-
         <svg viewBox="0 0 24 24" fill="none" stroke="#56635C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
         Takes 2 minutes. No obligation, no spam — your info stays with us.
       </p>
+      <div class="ticket-trust" aria-label="Why homeowners trust Swyft">
+        <span class="tt-item"><svg viewBox="0 0 24 24" fill="#6FA3DC" aria-hidden="true"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36L18 20.5 12 17l-6 3.5 1.25-6.87L2.5 9.27l6.6-1.01z"/></svg>4.9 Google rating</span>
+        <span class="tt-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>BBB accredited</span>
+        <span class="tt-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12l9-8 9 8"/><path d="M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9"/></svg>300+ homes bought</span>
+      </div>
+      <div style="text-align:center">
+        <span class="optout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>3-Day No-Questions Opt-Out</span>
+      </div>
+    </div>
+    <p class="ticket-quote">&ldquo;They showed me the comps line by line.&rdquo; <b>— Sandra K., Hemet</b></p>
     </div>
   </div>
 </section>
