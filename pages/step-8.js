@@ -1,15 +1,41 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Brand, getAnswers, clearAnswers } from "../components/funnel";
+
+const MAPS_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
 export default function Step8() {
   const [addr, setAddr] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [pos, setPos] = useState(null);
+  const [showBar, setShowBar] = useState(false);
+  const callRef = useRef(null);
+
+  useEffect(() => {
+    const el = callRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      (entries) => setShowBar(!entries[0].isIntersecting),
+      { threshold: 0 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     const a = getAnswers();
     setAddr(a.address || "");
+    setFirstName(((a.name || "").trim().split(/\s+/)[0]) || "");
+    if (a.lat != null && a.lng != null) setPos({ lat: a.lat, lng: a.lng });
     clearAnswers();
   }, []);
+
+  const mapSrc =
+    pos && MAPS_KEY
+      ? "https://maps.googleapis.com/maps/api/staticmap?center=" + pos.lat + "," + pos.lng +
+        "&zoom=19&size=640x220&scale=2&maptype=hybrid&markers=color:red%7C" + pos.lat + "," + pos.lng +
+        "&key=" + MAPS_KEY
+      : null;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -80,7 +106,13 @@ export default function Step8() {
       <Head><title>Thank you — Swyft</title><meta name="viewport" content="width=device-width, initial-scale=1" /></Head>
       <div className="funnel">
         <header className="f-head">
-          <Brand />
+          <a className="brand" href="/">
+            <svg className="brand-mark" width="30" height="30" viewBox="0 0 48 48" aria-hidden="true">
+              <circle cx="24" cy="24" r="24" fill="#0057B8" />
+              <path d="M28 11 L16.5 26.5 h7 L20 37 L31.5 21.5 h-7 Z" fill="#fff" stroke="#fff" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round" />
+            </svg>
+            <span className="brand-wordmark">SWYFT</span>
+          </a>
           <span className="f-secure">Private &amp; no obligation</span>
         </header>
 
@@ -90,11 +122,26 @@ export default function Step8() {
               <path d="M20 6L9 17l-5-5" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <h1 className="f-title">You{"\u2019"}re all set!</h1>
+          <h1 className="f-title">You{"\u2019"}re all set{firstName ? `, ${firstName}` : ""}!</h1>
           <p className="f-sub">
             Thanks{addr ? ` \u2014 we\u2019ve got the details for ${addr}.` : "."} An investor will review
             your property and reach out shortly with a no-obligation cash offer.
           </p>
+          {mapSrc ? (
+            <>
+              <img className="done-map" src={mapSrc} alt={"Satellite view of " + (addr || "your property")} />
+              <p className="done-map-cap">{addr}</p>
+            </>
+          ) : null}
+          <div className="f-agent" style={{ marginTop: 22, marginBottom: 0 }}>
+            <span className="f-agent-av" aria-hidden="true">AR</span>
+            <span><b>Anthony</b> will personally call you shortly from a local (951) number \u2014 keep an eye on your phone.</span>
+          </div>
+          <a className="done-call" href="tel:+19515550190" ref={callRef}>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 15.5c-1.2 0-2.4-.2-3.5-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1C8.7 8.4 8.5 7.2 8.5 6c0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1z"/></svg>
+            Or call Anthony now {"\u2014"} (951) 555-0190
+          </a>
+          <p className="done-call-note">Tap to call from your phone {"\u00B7"} Mon{"\u2013"}Sat, 8am{"\u2013"}7pm</p>
           <div className="f-card done-card">
             <h3 className="done-h">What happens next</h3>
             <ol className="done-list">
@@ -108,6 +155,13 @@ export default function Step8() {
         <footer className="f-foot">
           {"\u00A9"} {new Date().getFullYear()} Swyft Home Buyers {"\u00B7"} Perris &amp; the Inland Empire
         </footer>
+
+        <div className={"done-sticky" + (showBar ? " show" : "")} aria-hidden={!showBar}>
+          <a className="done-call" href="tel:+19515550190">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 15.5c-1.2 0-2.4-.2-3.5-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1C8.7 8.4 8.5 7.2 8.5 6c0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1z"/></svg>
+            Call Anthony {"\u2014"} (951) 555-0190
+          </a>
+        </div>
       </div>
     </>
   );

@@ -104,6 +104,22 @@ export default function App({ Component, pageProps }) {
         .f-link:hover { text-decoration: underline; }
         .f-link:disabled { opacity: 0.5; cursor: default; }
 
+        /* Thank-you page */
+        .brand-wordmark { letter-spacing: 0.24em; font-family: "Figtree", system-ui, sans-serif; font-size: 18px; font-weight: 700; color: var(--brand); }
+        .done-check { width: 58px; height: 58px; border-radius: 50%; background: var(--brand); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 18px; box-shadow: 0 0 0 6px #E4EDF8; }
+        .done-map { width: 100%; height: 190px; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); display: block; margin-top: 22px; }
+        .done-map-cap { font-size: 13px; color: var(--muted); margin-top: 8px; text-align: center; }
+        .done-card { background: #fff; border: 1px solid var(--line); border-radius: 13px; padding: 22px 24px; margin-top: 22px; }
+        .done-h { font-family: "Bricolage Grotesque", Georgia, serif; font-size: 19px; color: var(--ink); margin-bottom: 10px; }
+        .done-list { margin: 0; padding-left: 20px; color: var(--muted); }
+        .done-list li { padding: 4px 0; }
+
+        .done-call { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 14px; background: var(--gold); color: #fff; border-radius: 12px; padding: 17px; font-size: 17px; font-weight: 700; text-decoration: none; transition: background .15s ease, transform .1s ease; }
+        .done-call:hover { background: var(--gold-deep); }
+        .done-call:active { transform: translateY(1px); }
+        .done-call svg { width: 19px; height: 19px; flex: none; }
+        .done-call-note { text-align: center; font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+
         /* Call Now + live agents — mobile only */
         .f-call { display: none; }
         @media (max-width: 640px) {
@@ -115,6 +131,15 @@ export default function App({ Component, pageProps }) {
           box-shadow: 0 10px 24px -14px rgba(0, 87, 184, 0.55);
         }
         .f-callbtn:active { transform: translateY(1px); }
+        @keyframes callpulse {
+          0%, 100% { box-shadow: 0 10px 24px -14px rgba(0, 87, 184, 0.55), 0 0 0 0 rgba(0, 87, 184, 0.35); }
+          50% { box-shadow: 0 10px 24px -14px rgba(0, 87, 184, 0.55), 0 0 0 10px rgba(0, 87, 184, 0); }
+        }
+        .f-callbtn, .done-call { animation: callpulse 2.6s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) { .f-callbtn, .done-call, .f-dot { animation: none; } }
+        .done-sticky { position: fixed; bottom: 0; left: 0; right: 0; z-index: 60; background: #fff; border-top: 1px solid var(--line); padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); transform: translateY(110%); transition: transform 0.3s ease; box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08); }
+        .done-sticky.show { transform: none; }
+        .done-sticky .done-call { margin-top: 0; max-width: 560px; margin-left: auto; margin-right: auto; padding: 14px; }
         .f-agents { display: flex; align-items: center; gap: 11px; }
         .f-avs { display: inline-flex; }
         .f-av {
