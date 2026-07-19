@@ -164,6 +164,24 @@ export default function Home() {
           <div ref={boxRef} className="addrbox" />
           <button className="f-btn" type="submit">Next {"\u2192"}</button>
         </form>
+        <div className="f-proof" aria-label="Why homeowners trust Swyft">
+          <div className="f-chip">
+            <span className="f-chip-ico star" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.26L21.5 9.27l-4.75 4.36L18 20.5 12 17l-6 3.5 1.25-6.87L2.5 9.27l6.6-1.01z"/></svg></span>
+            <span className="f-chip-txt"><b>4.9 <span className="f-stars">{"\u2605\u2605\u2605\u2605\u2605"}</span></b><span>Google reviews</span></span>
+          </div>
+          <div className="f-chip">
+            <span className="f-chip-ico shield" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <span className="f-chip-txt"><b>BBB Accredited</b><span>A+ rated business</span></span>
+          </div>
+          <div className="f-chip">
+            <span className="f-chip-ico home" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12l9-8 9 8"/><path d="M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9"/></svg></span>
+            <span className="f-chip-txt"><b>300+ homes</b><span>bought in the IE</span></span>
+          </div>
+        </div>
+        <div className="f-guarantee">
+          <span className="f-guarantee-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14z" transform="translate(0 2)"/><path d="M9 11l2 2 4-4" transform="translate(0 2)"/></svg></span>
+          <span className="f-guarantee-txt"><b>Free, No-Obligation Cash Offer</b><span>The offer is yours to keep — accept it, shop it around, or just file it away.</span></span>
+        </div>
       </FunnelLayout>
     </>
   );

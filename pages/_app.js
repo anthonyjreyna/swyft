@@ -67,9 +67,31 @@ export default function App({ Component, pageProps }) {
         .addrbox { width: 100%; }
         .f-map { width: 100%; height: 230px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); margin-bottom: 16px; background: #F0EDE5; }
         gmp-place-autocomplete { width: 100%; display: block; }
+        .f-proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 24px; }
+        @media (max-width: 480px) { .f-proof { grid-template-columns: 1fr; } }
+        .f-chip { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 11px 12px; box-shadow: 0 6px 16px -12px rgba(23,25,29,.18); }
+        .f-chip-ico { width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+        .f-chip-ico svg { width: 18px; height: 18px; }
+        .f-chip-ico.star { background: #FFF3D6; color: #D89000; }
+        .f-chip-ico.shield { background: #E4EDF8; color: #0057B8; }
+        .f-chip-ico.home { background: #EFEBE0; color: #1A1D21; }
+        .f-chip-txt { line-height: 1.25; }
+        .f-chip-txt b { display: block; font-size: 13.5px; color: var(--ink); letter-spacing: .01em; }
+        .f-chip-txt span { font-size: 11.5px; color: var(--muted); font-weight: 500; }
+        .f-stars { color: #E8A400; font-size: 12px; letter-spacing: 1px; }
+        .f-guarantee { display: flex; align-items: center; gap: 12px; margin-top: 12px; background: linear-gradient(135deg, #E4EDF8 0%, #F1F6FC 100%); border: 1px solid rgba(0,87,184,.22); border-radius: 12px; padding: 12px 16px; }
+        .f-guarantee-ico { width: 38px; height: 38px; border-radius: 50%; background: #0057B8; color: #fff; display: inline-flex; align-items: center; justify-content: center; flex: none; box-shadow: 0 0 0 4px rgba(0,87,184,.14); }
+        .f-guarantee-ico svg { width: 19px; height: 19px; }
+        .f-guarantee-txt { line-height: 1.35; }
+        .f-guarantee-txt b { display: block; font-size: 14px; color: var(--ink); }
+        .f-guarantee-txt span { font-size: 12.5px; color: var(--muted); }
+        .f-agent { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 18px; font-size: 14.5px; color: var(--muted); }
+        .f-agent b { color: var(--ink); }
+        .f-agent-av { width: 44px; height: 44px; border-radius: 50%; background: var(--brand); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; flex: none; letter-spacing: .02em; }
+        .f-consent { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 16px; }
         .f-btn {
           width: 100%; margin-top: 20px; background: var(--gold); color: #fff;
-          border: 0; border-radius: 999px; padding: 16px; font-size: 16.5px; font-weight: 600;
+          border: 0; border-radius: 12px; padding: 16px; font-size: 16.5px; font-weight: 600;
           font-family: inherit; cursor: pointer; transition: background 0.15s ease, transform 0.1s ease;
         }
         .f-btn:hover { background: var(--gold-deep); }

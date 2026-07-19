@@ -27,6 +27,10 @@ export default function Step7() {
         title="Where should we send your cash offer?"
         subtitle="Your information is private and there is no obligation."
       >
+        <div className="f-agent">
+          <span className="f-agent-av" aria-hidden="true">AR</span>
+          <span>You&rsquo;ll hear from <b>Anthony</b> &mdash; a real local person, not a call center.</span>
+        </div>
         <form onSubmit={submit}>
           <label className="f-label">Full name</label>
           <input className="f-input" value={f.name} onChange={(e) => set("name", e.target.value)} placeholder="Jane Smith" />
@@ -34,6 +38,11 @@ export default function Step7() {
           <input className="f-input" type="email" value={f.email} onChange={(e) => set("email", e.target.value)} placeholder="jane@email.com" />
           <label className="f-label">Phone</label>
           <input className="f-input" type="tel" value={f.phone} onChange={(e) => set("phone", e.target.value)} placeholder="(555) 555-5555" />
+          <p className="f-consent">
+            By clicking Continue, you agree to receive calls and texts, including by autodialer,
+            prerecorded messages, and artificial voice, and email from Swyft Home Buyers.
+            Message and data rates may apply.
+          </p>
           <button className="f-btn" type="submit" disabled={busy}>
             {busy ? "\u2026" : "Continue \u2192"}
           </button>
