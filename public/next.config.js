@@ -4,6 +4,7 @@ module.exports = {
     return [
       { source: "/", destination: "/landing.html" },
       { source: "/careers", destination: "/careers.html" },
+      { source: "/privacy", destination: "/privacy.html" },
     ];
   },
 };
