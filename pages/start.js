@@ -175,7 +175,7 @@ export default function Home() {
           </div>
           <div className="f-chip">
             <span className="f-chip-ico home" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12l9-8 9 8"/><path d="M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9"/></svg></span>
-            <span className="f-chip-txt"><b>300+ homes</b><span>bought in the IE</span></span>
+            <span className="f-chip-txt"><b>300+ homes</b><span>bought in our markets</span></span>
           </div>
         </div>
         <div className="f-guarantee">
