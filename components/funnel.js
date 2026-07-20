@@ -133,7 +133,7 @@ export function FunnelLayout({ step, title, subtitle, children }) {
       </main>
 
       <footer className="f-foot">
-        {"\u00A9"} {new Date().getFullYear()} Swyft Home Buyers {"\u00B7"} Perris &amp; the Inland Empire
+        {"\u00A9"} {new Date().getFullYear()} Swyft Home Buyers {"\u00B7"} Indianapolis {"\u00B7"} Cleveland {"\u00B7"} Columbus {"\u00B7"} St. Louis
       </footer>
     </div>
   );
