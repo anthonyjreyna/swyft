@@ -23,8 +23,16 @@ export default function Verify() {
   }, [router]);
 
   const finishAndContinue = async () => {
+    const answers = getAnswers();
     try {
-      await saveLead(getAnswers());
+      await fetch("/api/submit-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(answers),
+      });
+    } catch (e) {}
+    try {
+      await saveLead(answers);
     } catch (e) {}
     router.push("/step-8");
   };
