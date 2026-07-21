@@ -18,6 +18,8 @@ export default function App({ Component, pageProps }) {
           --gold-deep: #00479A;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { color-scheme: light; }
+        gmp-place-autocomplete { color-scheme: light; }
         body {
           font-family: "Figtree", system-ui, -apple-system, sans-serif;
           background: var(--bg);
