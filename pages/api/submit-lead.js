@@ -13,9 +13,42 @@ export default async function handler(req, res) {
   const user = process.env.GMAIL_USER;
   const pass = process.env.GMAIL_APP_PASSWORD;
   const to = process.env.LEAD_EMAIL || user;
-  if (!user || !pass) return res.status(503).json({ error: "not-configured" });
 
   const lead = req.body || {};
+
+  // Forward the lead to an automation platform (SMS workflows, CRM, etc.)
+  // Set LEAD_WEBHOOK_URL in Vercel to your automation's inbound webhook URL.
+  // Fire-and-forget: a webhook failure never blocks the lead or the email.
+  const hook = process.env.LEAD_WEBHOOK_URL;
+  if (hook) {
+    try {
+      await fetch(hook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "swyft-funnel",
+          submittedAt: new Date().toISOString(),
+          name: lead.name || "",
+          firstName: ((lead.name || "").trim().split(/\s+/)[0]) || "",
+          phone: lead.phone || "",
+          email: lead.email || "",
+          address: lead.address || "",
+          propertyType: lead.propertyType || "",
+          bedrooms: lead.bedrooms || "",
+          bathrooms: lead.bathrooms || "",
+          condition: lead.condition || "",
+          timeline: lead.timeline || "",
+          lat: lead.lat != null ? lead.lat : null,
+          lng: lead.lng != null ? lead.lng : null,
+        }),
+      });
+    } catch (e) {}
+  }
+
+  if (!user || !pass) {
+    // No email configured — but if the webhook was sent, the lead still got through.
+    return res.status(hook ? 200 : 503).json(hook ? { ok: true, via: "webhook" } : { error: "not-configured" });
+  }
   const esc = (v) =>
     String(v == null ? "" : v).replace(/[<>&"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c]));
 
