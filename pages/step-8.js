@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Brand, getAnswers, clearAnswers } from "../components/funnel";
 
 const MAPS_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
@@ -8,19 +8,6 @@ export default function Step8() {
   const [addr, setAddr] = useState("");
   const [firstName, setFirstName] = useState("");
   const [pos, setPos] = useState(null);
-  const [showBar, setShowBar] = useState(false);
-  const callRef = useRef(null);
-
-  useEffect(() => {
-    const el = callRef.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
-    const io = new IntersectionObserver(
-      (entries) => setShowBar(!entries[0].isIntersecting),
-      { threshold: 0 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
 
   useEffect(() => {
     const a = getAnswers();
@@ -135,13 +122,9 @@ export default function Step8() {
           ) : null}
           <div className="f-agent" style={{ marginTop: 22, marginBottom: 0 }}>
             <img className="f-agent-photo" src="/anthony.jpg" alt="Anthony from Swyft" />
-            <span><b>Anthony</b> will personally call you shortly from a local number \u2014 keep an eye on your phone.</span>
+            <span><b>Anthony</b> will personally reach out shortly \u2014 keep an eye on your phone and email.</span>
           </div>
-          <a className="done-call" href="tel:+19515550190" ref={callRef}>
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 15.5c-1.2 0-2.4-.2-3.5-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1C8.7 8.4 8.5 7.2 8.5 6c0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1z"/></svg>
-            Or call Anthony now {"\u2014"} (951) 555-0190
-          </a>
-          <p className="done-call-note">Tap to call from your phone {"\u00B7"} Mon{"\u2013"}Sat, 8am{"\u2013"}7pm</p>
+
           <div className="f-card done-card">
             <h3 className="done-h">What happens next</h3>
             <ol className="done-list">
@@ -156,12 +139,6 @@ export default function Step8() {
           {"\u00A9"} {new Date().getFullYear()} Swyft Home Buyers {"\u00B7"} Indianapolis {"\u00B7"} Cleveland {"\u00B7"} Columbus {"\u00B7"} St. Louis
         </footer>
 
-        <div className={"done-sticky" + (showBar ? " show" : "")} aria-hidden={!showBar}>
-          <a className="done-call" href="tel:+19515550190">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 15.5c-1.2 0-2.4-.2-3.5-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1C8.7 8.4 8.5 7.2 8.5 6c0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1z"/></svg>
-            Call Anthony {"\u2014"} (951) 555-0190
-          </a>
-        </div>
       </div>
     </>
   );
