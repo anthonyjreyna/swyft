@@ -1,13 +1,19 @@
-// Emails each completed funnel lead to you via Resend.
-// Env vars (set in Vercel): RESEND_API_KEY, LEAD_EMAIL (where leads are sent).
+// Emails each completed funnel lead to you through YOUR OWN Gmail account.
+// Env vars (set in Vercel):
+//   GMAIL_USER          - your Gmail address (the sender)
+//   GMAIL_APP_PASSWORD  - a Google "App Password" (16 chars, no spaces)
+//   LEAD_EMAIL          - optional; where leads go. Defaults to GMAIL_USER.
 // Returns 503 when not configured so the funnel never blocks a seller.
+
+import nodemailer from "nodemailer";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "method" });
 
-  const key = process.env.RESEND_API_KEY;
-  const to = process.env.LEAD_EMAIL;
-  if (!key || !to) return res.status(503).json({ error: "not-configured" });
+  const user = process.env.GMAIL_USER;
+  const pass = process.env.GMAIL_APP_PASSWORD;
+  const to = process.env.LEAD_EMAIL || user;
+  if (!user || !pass) return res.status(503).json({ error: "not-configured" });
 
   const lead = req.body || {};
   const esc = (v) =>
@@ -38,29 +44,27 @@ export default async function handler(req, res) {
   const mapLink =
     lead.lat != null && lead.lng != null
       ? '<p style="margin-top:14px"><a href="https://www.google.com/maps?q=' +
-        lead.lat + "," + lead.lng +
-        '&t=k">View property on Google Maps</a></p>'
+        lead.lat + "," + lead.lng + '&t=k">View property on Google Maps</a></p>'
       : "";
 
   try {
-    const r = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: "Bearer " + key, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from: "Swyft Leads <onboarding@resend.dev>",
-        to: [to],
-        reply_to: lead.email || undefined,
-        subject: "New cash offer lead — " + (lead.address || "address pending"),
-        html:
-          '<div style="font-family:system-ui,sans-serif;max-width:520px">' +
-          '<h2 style="margin:0 0 4px">New seller lead (phone verified)</h2>' +
-          '<p style="margin:0 0 16px;color:#5B5E63;font-size:13px">Submitted via swyftholdings.com funnel</p>' +
-          "<table>" + rows + "</table>" + mapLink + "</div>",
-      }),
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: { user, pass },
     });
-    if (!r.ok) return res.status(502).json({ error: "send-failed" });
+    await transporter.sendMail({
+      from: '"Swyft Leads" <' + user + ">",
+      to,
+      replyTo: lead.email || undefined,
+      subject: "New cash offer lead — " + (lead.address || "address pending"),
+      html:
+        '<div style="font-family:system-ui,sans-serif;max-width:520px">' +
+        '<h2 style="margin:0 0 4px">New seller lead (phone verified)</h2>' +
+        '<p style="margin:0 0 16px;color:#5B5E63;font-size:13px">Submitted via the Swyft funnel</p>' +
+        "<table>" + rows + "</table>" + mapLink + "</div>",
+    });
     return res.status(200).json({ ok: true });
   } catch (e) {
-    return res.status(500).json({ error: "server" });
+    return res.status(502).json({ error: "send-failed" });
   }
 }
