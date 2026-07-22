@@ -62,6 +62,9 @@ export default async function handler(req, res) {
     ["Bathrooms", lead.bathrooms],
     ["Condition", lead.condition],
     ["Timeline", lead.timeline],
+    ["Sq ft (records)", lead.squareFootage],
+    ["Year built (records)", lead.yearBuilt],
+    ["Lot size (records)", lead.lotSize],
   ]
     .filter(([, v]) => v)
     .map(
