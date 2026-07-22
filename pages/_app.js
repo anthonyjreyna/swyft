@@ -89,6 +89,8 @@ export default function App({ Component, pageProps }) {
         }
         .choice:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 10px 24px -16px rgba(23, 25, 29, 0.12); }
         .choice-arrow { color: var(--gold-ink); font-weight: 700; }
+        .choice.rec { border-color: var(--brand); }
+        .rec-badge { display: inline-block; margin-left: 10px; background: #E4EDF8; color: #3A6BA5; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; vertical-align: 2px; }
 
         .f-label { display: block; font-size: 13.5px; font-weight: 700; color: var(--ink); margin: 14px 0 7px; }
         .f-input {

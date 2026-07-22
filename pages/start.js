@@ -196,7 +196,10 @@ export default function Home() {
               await place.fetchFields({ fields: ["formattedAddress", "location"] });
             } catch (e) {}
             const addr = place.formattedAddress || "";
-            if (addr) selectedRef.current = addr;
+            if (addr) {
+              selectedRef.current = addr;
+              lookupRecords(addr);
+            }
 
             const loc = place.location;
             let lat = null;
@@ -232,6 +235,34 @@ export default function Home() {
       cancelled = true;
     };
   }, [router]);
+
+  const lookupRecords = (addr) => {
+    try {
+      fetch("/api/property-lookup?address=" + encodeURIComponent(addr))
+        .then((r) => (r.ok && r.status === 200 ? r.json() : null))
+        .then((d) => {
+          if (!d) return;
+          const typeMap = {
+            "Single Family": "Single-family home",
+            "Condo": "Condo",
+            "Townhouse": "Townhouse",
+            "Multi-Family": "Multi-family",
+            "Manufactured": "Mobile / manufactured",
+            "Mobile Home": "Mobile / manufactured",
+          };
+          if (d.propertyType && typeMap[d.propertyType]) setAnswer("rec_propertyType", typeMap[d.propertyType]);
+          if (d.bedrooms != null) setAnswer("rec_bedrooms", d.bedrooms >= 5 ? "5 or more" : String(d.bedrooms));
+          if (d.bathrooms != null) {
+            const b = d.bathrooms;
+            setAnswer("rec_bathrooms", b >= 4 ? "4 or more" : b === 1.5 ? "1.5" : String(Math.floor(b) === b ? b : Math.round(b)));
+          }
+          if (d.squareFootage != null) setAnswer("squareFootage", d.squareFootage);
+          if (d.yearBuilt != null) setAnswer("yearBuilt", d.yearBuilt);
+          if (d.lotSize != null) setAnswer("lotSize", d.lotSize);
+        })
+        .catch(() => {});
+    } catch (e) {}
+  };
 
   const proceed = (e) => {
     if (e) e.preventDefault();
