@@ -80,9 +80,9 @@ export function HomeImage() {
 
 
 
-export function FunnelLayout({ step, title, subtitle, children }) {
+export function FunnelLayout({ step, title, subtitle, children, aside }) {
   const pct = Math.round((step / TOTAL_STEPS) * 100);
-  return (
+  const body = (
     <div className="funnel">
       <header className="f-head">
         <Brand />
@@ -104,6 +104,14 @@ export function FunnelLayout({ step, title, subtitle, children }) {
       <footer className="f-foot">
         {"\u00A9"} {new Date().getFullYear()} Swyft Home Buyers {"\u00B7"} Indianapolis {"\u00B7"} Cleveland {"\u00B7"} Columbus {"\u00B7"} St. Louis
       </footer>
+    </div>
+  );
+
+  if (!aside) return body;
+  return (
+    <div className="f-split">
+      <aside className="f-split-aside">{aside}</aside>
+      <div className="f-split-main">{body}</div>
     </div>
   );
 }
