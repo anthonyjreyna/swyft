@@ -35,6 +35,105 @@ function bootstrapMaps(key) {
   };
 }
 
+function AsideHouse() {
+  return (
+    <svg className="aside-house" viewBox="0 0 1100 700" preserveAspectRatio="xMinYMax slice" aria-hidden="true">
+      {/* soft bushes behind the house */}
+      <ellipse cx="1010" cy="470" rx="150" ry="120" fill="#7FA05B" />
+      <ellipse cx="1045" cy="590" rx="170" ry="130" fill="#8FB16A" />
+      <ellipse cx="905" cy="620" rx="120" ry="95" fill="#6E9450" />
+      <g transform="translate(-779 -601) scale(1.7)">
+        {/* house */}
+        <rect x="392" y="568" width="383" height="162" fill="#F6F1E6" />
+        <rect x="775" y="630" width="240" height="100" fill="#E9714B" />
+        <rect x="775" y="592" width="240" height="38" fill="#26324F" />
+        <rect x="786" y="597" width="44" height="28" rx="3" fill="#8FC1EC" />
+        <rect x="842" y="597" width="44" height="28" rx="3" fill="#8FC1EC" />
+        <rect x="898" y="597" width="44" height="28" rx="3" fill="#8FC1EC" />
+        <rect x="954" y="597" width="44" height="28" rx="3" fill="#8FC1EC" />
+        <rect x="414" y="600" width="190" height="108" rx="4" fill="#26324F" />
+        <rect x="422" y="608" width="174" height="92" fill="#C4E4F6" />
+        <rect x="422" y="608" width="174" height="40" fill="#E0F2FC" />
+        <rect x="505" y="608" width="6" height="92" fill="#26324F" />
+        <rect x="692" y="628" width="58" height="102" rx="3" fill="#F2B23F" />
+        <circle cx="740" cy="682" r="4" fill="#26324F" />
+        <rect x="806" y="652" width="180" height="78" rx="4" fill="#F08A5F" />
+        <line x1="812" y1="674" x2="980" y2="674" stroke="#D9623C" strokeWidth="4" />
+        <line x1="812" y1="694" x2="980" y2="694" stroke="#D9623C" strokeWidth="4" />
+        <line x1="812" y1="714" x2="980" y2="714" stroke="#D9623C" strokeWidth="4" />
+        <rect x="880" y="700" width="32" height="6" rx="3" fill="#26324F" />
+        <polygon points="346,556 1064,590 1064,598 346,564" fill="#26324F" />
+        <polygon points="346,540 1064,574 1064,590 346,556" fill="#F9F6EE" />
+        {/* head-on SUV, nudged toward centre, cropped by the bottom */}
+        <g transform="translate(-160 0)">
+          <rect x="1094" y="834" width="34" height="40" rx="9" fill="#1D2433" />
+          <rect x="1242" y="834" width="34" height="40" rx="9" fill="#1D2433" />
+          <rect x="1112" y="724" width="146" height="64" rx="14" fill="#AEB6C2" />
+          <rect x="1122" y="720" width="126" height="9" rx="4.5" fill="#8F98A6" />
+          <path d="M1124 740 L1246 740 L1240 778 L1130 778 Z" fill="#1E2C44" />
+          <path d="M1150 740 L1188 778 L1170 778 L1136 740 Z" fill="#7FA6D6" opacity=".4" />
+          <rect x="1090" y="752" width="22" height="14" rx="5" fill="#9AA3B0" />
+          <rect x="1258" y="752" width="22" height="14" rx="5" fill="#9AA3B0" />
+          <path d="M1100 852 L1098 800 C1098 786 1106 778 1118 776 L1252 776 C1264 778 1272 786 1272 800 L1270 852 Z" fill="#B9C1CC" />
+          <rect x="1148" y="800" width="74" height="22" rx="6" fill="#2A3546" />
+          <rect x="1112" y="800" width="30" height="17" rx="5" fill="#F8E9B0" stroke="#D9C070" strokeWidth="1.6" />
+          <rect x="1228" y="800" width="30" height="17" rx="5" fill="#F8E9B0" stroke="#D9C070" strokeWidth="1.6" />
+          <rect x="1094" y="832" width="182" height="22" rx="10" fill="#7F8896" />
+        </g>
+      </g>
+      {/* woman by the garage */}
+      <g>
+        <circle cx="585" cy="556" r="13" fill="#3A2E28" />
+        <path d="M572 572 L598 572 L606 662 L564 662 Z" fill="#F5F3EE" />
+        <path d="M596 590 C 606 598, 610 606, 608 616" stroke="#E9C9A8" strokeWidth="7" strokeLinecap="round" fill="none" />
+        <ellipse cx="611" cy="626" rx="12" ry="15" fill="#2F6B5E" />
+      </g>
+      {/* white fence peek, bottom right */}
+      <g fill="#fff">
+        <rect x="880" y="612" width="16" height="60" rx="3" /><polygon points="880,616 888,606 896,616" />
+        <rect x="908" y="612" width="16" height="60" rx="3" /><polygon points="908,616 916,606 924,616" />
+        <rect x="936" y="612" width="16" height="60" rx="3" /><polygon points="936,616 944,606 952,616" />
+        <rect x="964" y="612" width="16" height="60" rx="3" /><polygon points="964,616 972,606 980,616" />
+        <rect x="872" y="628" width="118" height="8" rx="4" fill="#EDF0F4" />
+      </g>
+      {/* left corner bush */}
+      <ellipse cx="30" cy="690" rx="150" ry="92" fill="#57B56F" />
+      <ellipse cx="110" cy="704" rx="120" ry="70" fill="#3FA05A" />
+    </svg>
+  );
+}
+
+function EdgePalm() {
+  const frond = "M0 0 C 62 -30, 152 -36, 200 -10 C 150 14, 66 16, 0 0 Z";
+  const green = ["#2F8A4C", "#3FA05A", "#57B56F", "#2E7B44", "#4AAB63", "#3FA05A", "#2F8A4C", "#57B56F", "#3E9E5C"];
+  const gold = ["#C2A93A", "#B09627", "#D4BC55", "#A98F24"];
+  return (
+    <>
+      {/* tall palm pinned to the bottom-right edge; right fronds clip on the divider */}
+      <svg className="palm-tree" viewBox="0 0 320 900" preserveAspectRatio="xMaxYMax meet" aria-hidden="true">
+        <path d="M262 950 C 252 760, 240 600, 218 430" stroke="#7B6B5E" strokeWidth="26" strokeLinecap="round" fill="none" />
+        <path d="M256 950 C 247 770, 236 610, 216 442" stroke="#93826F" strokeWidth="7" strokeLinecap="round" fill="none" opacity=".65" />
+        <path d="M268 950 C 259 780, 248 620, 224 452" stroke="#5F5348" strokeWidth="5" strokeLinecap="round" fill="none" opacity=".5" />
+        <g transform="translate(218 430)">
+          {[-200, -170, -140, -110, -80, -50, -15, 15, 48].map((r, i) => (
+            <path key={r} d={frond} fill={green[i]} transform={"rotate(" + r + ") scale(.82)"} />
+          ))}
+          <circle r="12" fill="#2F8A4C" />
+        </g>
+      </svg>
+      {/* golden fronds hanging in from the top edge */}
+      <svg className="palm-gold" viewBox="0 0 300 250" preserveAspectRatio="xMaxYMin meet" aria-hidden="true">
+        <g transform="translate(304 -26)">
+          {[92, 122, 148, 172].map((r, i) => (
+            <path key={r} d={frond} fill={gold[i]} transform={"rotate(" + r + ") scale(1.05)"} />
+          ))}
+          <circle r="11" fill="#B09627" />
+        </g>
+      </svg>
+    </>
+  );
+}
+
 export default function Home() {
   const router = useRouter();
   const boxRef = useRef(null);
@@ -157,6 +256,7 @@ export default function Home() {
         step={1}
         title="What is the address of the property you want to sell?"
         subtitle="Start typing and choose your address from the list."
+        aside={<><AsideHouse /><EdgePalm /></>}
       >
         <div ref={mapRef} className="f-map" style={{ display: "none" }} />
         <form onSubmit={proceed}>
@@ -180,7 +280,7 @@ export default function Home() {
         </div>
         <div className="f-guarantee">
           <span className="f-guarantee-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14z" transform="translate(0 2)"/><path d="M9 11l2 2 4-4" transform="translate(0 2)"/></svg></span>
-          <span className="f-guarantee-txt"><b>Free, No-Obligation Cash Offer</b><span>The offer is yours to keep — accept it, shop it around, or just file it away.</span></span>
+          <span className="f-guarantee-txt"><b>Free, No-Obligation Cash Offer</b><span>The offer is yours to keep {"\u2014"} accept it, shop it around, or just file it away.</span></span>
         </div>
       </FunnelLayout>
     </>

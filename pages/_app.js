@@ -30,6 +30,36 @@ export default function App({ Component, pageProps }) {
         a { color: inherit; text-decoration: none; }
 
         .funnel { min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* ---- split-screen layout (step 1) ---- */
+        .f-split { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); min-height: 100vh; }
+        .f-split-aside { background: linear-gradient(180deg, #2277E3 0%, #1E6AD6 100%); color: #fff; padding: 0; display: block; position: sticky; top: 0; height: 100vh; overflow: hidden; }
+        .f-split-main { background: #fff; }
+        .aside-house { position: absolute; left: 0; bottom: 0; width: 100%; height: auto; max-height: 72%; pointer-events: none; }
+        .palm-tree { position: absolute; right: 0; bottom: 0; height: 94%; width: auto; pointer-events: none; }
+        .palm-gold { position: absolute; right: 0; top: 0; width: clamp(200px, 44%, 320px); height: auto; pointer-events: none; }
+        @media (max-width: 900px) { .palm-tree, .palm-gold { display: none; } }
+        .f-split-aside h2 { font-size: clamp(28px, 2.6vw, 40px); font-weight: 800; line-height: 1.12; letter-spacing: -0.8px; color: #fff; max-width: 15ch; }
+        .f-split-aside p.lede { margin-top: 16px; font-size: 17px; font-weight: 600; line-height: 1.55; opacity: .95; max-width: 34ch; }
+        .aside-list { list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 14px; }
+        .aside-list li { display: flex; align-items: flex-start; gap: 11px; font-size: 15.5px; font-weight: 600; line-height: 1.45; }
+        .aside-check { width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.42); display: inline-flex; align-items: center; justify-content: center; flex: none; margin-top: 1px; }
+        .aside-check svg { width: 13px; height: 13px; }
+        .aside-quote { margin-top: 34px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.28); font-size: 15px; line-height: 1.6; font-style: italic; opacity: .96; }
+        .aside-quote b { display: block; margin-top: 10px; font-style: normal; font-size: 13.5px; font-weight: 700; opacity: .9; }
+        .aside-trust { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 13.5px; font-weight: 700; opacity: .95; }
+        .aside-trust span { display: inline-flex; align-items: center; gap: 7px; }
+        .f-split .funnel { min-height: 100vh; }
+
+        @media (max-width: 900px) {
+          .f-split { grid-template-columns: 1fr; }
+          .f-split-aside { display: none; }
+          .f-split-aside h2 { font-size: 25px; max-width: none; }
+          .f-split-aside p.lede, .aside-quote { display: none; }
+          .aside-list { margin-top: 18px; gap: 9px; }
+          .aside-list li { font-size: 14.5px; }
+          .aside-trust { margin-top: 18px; font-size: 12.5px; gap: 8px 16px; }
+        }
         .f-head {
           display: flex; align-items: center; justify-content: space-between;
           padding: 16px 22px; max-width: 760px; margin: 0 auto; width: 100%;
