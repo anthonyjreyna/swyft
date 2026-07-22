@@ -118,6 +118,14 @@ export function FunnelLayout({ step, title, subtitle, children, aside }) {
 
 export function Choices({ name, options, next }) {
   const router = useRouter();
+  const [rec, setRec] = useState("");
+  useEffect(() => {
+    try {
+      const a = getAnswers();
+      const r = a["rec_" + name];
+      if (r != null) setRec(String(r));
+    } catch (e) {}
+  }, [name]);
   const pick = (val) => {
     setAnswer(name, val);
     router.push(next);
@@ -126,8 +134,8 @@ export function Choices({ name, options, next }) {
     <>
       <div className="choices">
         {options.map((o) => (
-          <button className="choice" key={o} type="button" onClick={() => pick(o)}>
-            <span>{o}</span>
+          <button className={"choice" + (rec && rec === o ? " rec" : "")} key={o} type="button" onClick={() => pick(o)}>
+            <span>{o}{rec && rec === o ? <span className="rec-badge">Public records</span> : null}</span>
             <span className="choice-arrow">{"\u2192"}</span>
           </button>
         ))}
