@@ -361,9 +361,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </pattern>
     </defs>
     <path d="M0 736 Q 400 726 800 732 T 1600 728 L1600 900 L0 900 Z" fill="url(#lawnGrad)"/>
-    <rect x="100" y="666" width="1400" height="64" fill="url(#pickets)"/>
-    <rect x="100" y="684" width="1400" height="9" rx="4" fill="#EDF0F4"/>
-    <rect x="100" y="708" width="1400" height="9" rx="4" fill="#EDF0F4"/>
+    <rect x="0" y="666" width="1600" height="64" fill="url(#pickets)"/>
+    <rect x="0" y="684" width="1600" height="9" rx="4" fill="#EDF0F4"/>
+    <rect x="0" y="708" width="1600" height="9" rx="4" fill="#EDF0F4"/>
     <g transform="translate(-170 0)">
     <polygon points="1040,730 1240,730 1330,900 960,900" fill="#DADFE6"/>
     <ellipse cx="700" cy="736" rx="330" ry="11" fill="#2C7A43" opacity=".38"/>
@@ -455,8 +455,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- hood highlight -->
       <path d="M1106 796 L1264 796" stroke="#F2F5F9" stroke-width="2.5" opacity=".55"/>
     </g>
-    <ellipse cx="296" cy="702" rx="58" ry="42" fill="#57B56F"/>
-    <ellipse cx="246" cy="712" rx="50" ry="36" fill="#3FA05A"/>
     </g>
     <g transform="translate(-150 0)">
       <ellipse cx="140" cy="744" rx="190" ry="12" fill="#2C7A43" opacity=".35"/>
@@ -471,9 +469,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <use href="#frond" fill="#3FA05A" transform="rotate(10)"/>
         <circle r="10" fill="#2F8A4C"/>
       </g>
-      <ellipse cx="38" cy="620" rx="190" ry="150" fill="#2E7B44"/>
-      <ellipse cx="210" cy="660" rx="160" ry="120" fill="#3FA05A"/>
-      <ellipse cx="70" cy="690" rx="170" ry="100" fill="#63BE79"/>
       <path d="M262 745 C 252 600, 278 480, 266 330" stroke="#4E8F57" stroke-width="18" stroke-linecap="round" fill="none"/>
       <g transform="translate(266 330)">
         <use href="#frond" fill="#2F8A4C" transform="rotate(-170)"/>
@@ -489,12 +484,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </g>
     <g>
       <ellipse cx="1470" cy="748" rx="200" ry="12" fill="#2C7A43" opacity=".35"/>
-      <rect x="1462" y="540" width="26" height="200" rx="8" fill="#8A6B4A"/>
-      <circle cx="1396" cy="452" r="96" fill="#2E7B44"/>
-      <circle cx="1560" cy="452" r="100" fill="#57B56F"/>
-      <circle cx="1478" cy="392" r="132" fill="#3FA05A"/>
-      <circle cx="1520" cy="330" r="46" fill="#57B56F"/>
-      <circle cx="1478" cy="486" r="92" fill="#6CC47E"/>
+      <!-- layered cloud bushes, right side -->
+      <g transform="translate(1360 700)">
+        <path d="M-118 48 C -156 48 -178 24 -172 -4 C -192 -16 -188 -48 -162 -54 C -158 -84 -128 -100 -100 -88 C -86 -112 -48 -112 -34 -90 C -4 -98 24 -78 22 -50 C 46 -40 48 -8 28 4 C 34 32 8 48 -20 48 Z" fill="#5C8A3C"/>
+        <path d="M-118 48 C -156 48 -178 24 -172 -4 C -180 -12 -182 -28 -172 -38 C -140 -30 -96 -14 -60 12 C -38 28 -26 40 -20 48 Z" fill="#46702E"/>
+        <path d="M-34 -90 C -4 -98 24 -78 22 -50 C 34 -46 42 -34 40 -22 C 12 -40 -20 -60 -52 -68 C -48 -80 -42 -87 -34 -90 Z" fill="#79A650"/>
+      </g>
+      <g transform="translate(1520 688)">
+        <path d="M-64 60 C -96 60 -114 38 -108 12 C -126 0 -122 -32 -98 -38 C -100 -70 -74 -94 -44 -88 C -34 -114 4 -116 18 -92 C 48 -96 70 -72 62 -44 C 82 -32 80 -2 60 8 C 66 38 40 60 10 60 Z" fill="#6E9B45"/>
+        <path d="M-64 60 C -96 60 -114 38 -108 12 C -114 4 -116 -8 -110 -18 C -76 -6 -34 14 -4 38 C 4 46 8 54 8 60 Z" fill="#557D34"/>
+        <path d="M18 -92 C 48 -96 70 -72 62 -44 C 72 -38 77 -28 75 -18 C 48 -40 14 -62 -18 -74 C -8 -86 4 -92 18 -92 Z" fill="#8FB761"/>
+      </g>
+      <g transform="translate(1620 706)">
+        <path d="M-52 42 C -80 42 -96 22 -90 0 C -106 -10 -102 -36 -82 -42 C -82 -68 -58 -86 -32 -78 C -20 -98 12 -98 24 -78 C 50 -82 68 -62 62 -40 C 78 -30 76 -6 58 2 C 62 26 40 42 14 42 Z" fill="#4F7A34"/>
+        <path d="M-52 42 C -80 42 -96 22 -90 0 C -96 -8 -96 -20 -88 -28 C -58 -16 -24 2 0 24 C 8 32 12 38 12 42 Z" fill="#3C6028"/>
+      </g>
+      <!-- small palm between bushes -->
+      <path d="M1282 748 C 1278 706, 1276 668, 1280 624" stroke="#7A6A45" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <g transform="translate(1280 624) scale(.45)">
+        <use href="#frond" fill="#8FA04A" transform="rotate(-170)"/>
+        <use href="#frond" fill="#6E8F3F" transform="rotate(-135)"/>
+        <use href="#frond" fill="#7FA05B" transform="rotate(-100)"/>
+        <use href="#frond" fill="#8FA04A" transform="rotate(-62)"/>
+        <use href="#frond" fill="#6E8F3F" transform="rotate(-28)"/>
+        <use href="#frond" fill="#7FA05B" transform="rotate(8)"/>
+        <circle r="12" fill="#6E8F3F"/>
+      </g>
+      <!-- curved grass tufts -->
+      <g fill="#46702E">
+        <path d="M1268 748 C 1270 720, 1278 700, 1292 688 C 1284 712, 1280 730, 1280 748 Z"/>
+        <path d="M1284 748 C 1288 716, 1300 694, 1318 684 C 1306 710, 1298 730, 1296 748 Z" fill="#5C8A3C"/>
+        <path d="M1436 748 C 1438 722, 1446 702, 1460 692 C 1452 714, 1448 732, 1448 748 Z" fill="#5C8A3C"/>
+        <path d="M1452 748 C 1456 718, 1468 698, 1486 690 C 1474 714, 1466 732, 1464 748 Z"/>
+        <path d="M1560 748 C 1562 724, 1570 706, 1584 696 C 1576 716, 1572 734, 1572 748 Z" fill="#5C8A3C"/>
+      </g>
+
       <path d="M1332 742 C 1344 590, 1310 470, 1328 316" stroke="#4E8F57" stroke-width="18" stroke-linecap="round" fill="none"/>
       <g transform="translate(1328 316)">
         <use href="#frond" fill="#2F8A4C" transform="rotate(-172)"/>
@@ -507,9 +531,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <use href="#frond" fill="#2F8A4C" transform="rotate(38)"/>
         <circle r="11" fill="#2F8A4C"/>
       </g>
-      <ellipse cx="1568" cy="640" rx="200" ry="150" fill="#2E7B44"/>
-      <ellipse cx="1436" cy="676" rx="150" ry="115" fill="#3FA05A"/>
-      <ellipse cx="1580" cy="700" rx="170" ry="105" fill="#63BE79"/>
     </g>
   </svg>
 </section>
