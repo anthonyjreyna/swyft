@@ -14,6 +14,19 @@ export default function Step8() {
     setAddr(a.address || "");
     setFirstName(((a.name || "").trim().split(/\s+/)[0]) || "");
     if (a.lat != null && a.lng != null) setPos({ lat: a.lat, lng: a.lng });
+
+    // Conversion signal for Google Tag Manager (Ads / GA4 / Meta triggers hang off this)
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "lead_submitted",
+        funnel: "seller_cash_offer",
+        property_type: a.propertyType || null,
+        timeline: a.timeline || null,
+        condition: a.condition || null,
+      });
+    } catch (e) {}
+
     clearAnswers();
   }, []);
 
@@ -90,7 +103,11 @@ export default function Step8() {
 
   return (
     <>
-      <Head><title>Thank you — Swyft</title><meta name="viewport" content="width=device-width, initial-scale=1" /></Head>
+      <Head>
+        <title>You{"\u2019"}re all set {"\u2014"} Swyft</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <div className="funnel">
         <header className="f-head">
           <a className="brand" href="/">
@@ -111,8 +128,10 @@ export default function Step8() {
           </div>
           <h1 className="f-title">You{"\u2019"}re all set{firstName ? `, ${firstName}` : ""}!</h1>
           <p className="f-sub">
-            Thanks{addr ? ` \u2014 we\u2019ve got the details for ${addr}.` : "."} An investor will review
-            your property and reach out shortly with a no-obligation cash offer.
+            {addr
+              ? `We\u2019ve got the details for ${addr}.`
+              : "We\u2019ve got your property details."}{" "}
+            Your cash offer will be ready <b>within 24 hours</b> {"\u2014"} no obligation to accept it.
           </p>
           {mapSrc ? (
             <>
@@ -122,17 +141,38 @@ export default function Step8() {
           ) : null}
           <div className="f-agent" style={{ marginTop: 22, marginBottom: 0 }}>
             <img className="f-agent-photo" src="/anthony.jpg" alt="Anthony from Swyft" />
-            <span><b>Anthony</b> will personally reach out shortly \u2014 keep an eye on your phone and email.</span>
+            <span><b>Anthony</b> personally reviews every property {"\u2014"} expect a call or email from him, not a call center.</span>
           </div>
 
           <div className="f-card done-card">
             <h3 className="done-h">What happens next</h3>
-            <ol className="done-list">
-              <li>We match your property to investors in your area.</li>
-              <li>You{"\u2019"}ll get a call or email to confirm a few details.</li>
-              <li>You receive your cash offer — no obligation to accept.</li>
+            <ol className="done-steps">
+              <li>
+                <b>We run your numbers</b>
+                <span>We pull comparable sales in your neighborhood and price the repairs {"\u2014"} today.</span>
+              </li>
+              <li>
+                <b>A quick call to confirm details</b>
+                <span>Usually under five minutes. No walkthrough needed to get your offer.</span>
+              </li>
+              <li>
+                <b>Your cash offer, in writing</b>
+                <span>Within 24 hours. Accept it, shop it around, or file it away {"\u2014"} entirely your call.</span>
+              </li>
             </ol>
           </div>
+
+          <div className="done-tip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.3 0 .7-.2 1l-2.2 2Z" />
+            </svg>
+            <span>
+              <b>One quick favor</b>
+              Our call may show as an unknown number. Answering the first time is the fastest way to get your offer.
+            </span>
+          </div>
+
+          <a className="done-home" href="/">Back to Swyft home</a>
         </main>
 
         <footer className="f-foot">
