@@ -16,6 +16,50 @@ export default async function handler(req, res) {
 
   const lead = req.body || {};
 
+  // --- Encharge (marketing automation) -------------------------------------
+  // Set ENCHARGE_WRITE_KEY in Vercel. Get it at app.encharge.io/account/info.
+  // Fire-and-forget: an Encharge failure never blocks the lead or the email.
+  const enchargeKey = process.env.ENCHARGE_WRITE_KEY;
+  if (enchargeKey && (lead.email || lead.phone)) {
+    const parts = String(lead.name || "").trim().split(/\s+/).filter(Boolean);
+    const firstName = parts[0] || "";
+    const lastName = parts.length > 1 ? parts.slice(1).join(" ") : "";
+    try {
+      await fetch("https://ingest.encharge.io/v1", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Encharge-Token": enchargeKey },
+        body: JSON.stringify({
+          name: "Cash Offer Requested",
+          user: {
+            email: lead.email || undefined,
+            userId: lead.email ? undefined : String(lead.phone),
+            firstName: firstName || undefined,
+            lastName: lastName || undefined,
+            phone: lead.phone || undefined,
+            propertyAddress: lead.address || undefined,
+            tags: "seller-lead, swyft-funnel",
+          },
+          properties: {
+            address: lead.address || null,
+            propertyType: lead.propertyType || null,
+            bedrooms: lead.bedrooms || null,
+            bathrooms: lead.bathrooms || null,
+            condition: lead.condition || null,
+            timeline: lead.timeline || null,
+            squareFootage: lead.squareFootage != null ? lead.squareFootage : null,
+            yearBuilt: lead.yearBuilt != null ? lead.yearBuilt : null,
+            phoneVerified: true,
+            submittedAt: new Date().toISOString(),
+            mapUrl:
+              lead.lat != null && lead.lng != null
+                ? "https://www.google.com/maps?q=" + lead.lat + "," + lead.lng + "&t=k"
+                : null,
+          },
+        }),
+      });
+    } catch (e) {}
+  }
+
   // Forward the lead to an automation platform (SMS workflows, CRM, etc.)
   // Set LEAD_WEBHOOK_URL in Vercel to your automation's inbound webhook URL.
   // Fire-and-forget: a webhook failure never blocks the lead or the email.
@@ -46,8 +90,11 @@ export default async function handler(req, res) {
   }
 
   if (!user || !pass) {
-    // No email configured — but if the webhook was sent, the lead still got through.
-    return res.status(hook ? 200 : 503).json(hook ? { ok: true, via: "webhook" } : { error: "not-configured" });
+    // No email configured — but if a webhook or Encharge fired, the lead still got through.
+    const delivered = Boolean(hook || enchargeKey);
+    return res
+      .status(delivered ? 200 : 503)
+      .json(delivered ? { ok: true, via: hook ? "webhook" : "encharge" } : { error: "not-configured" });
   }
   const esc = (v) =>
     String(v == null ? "" : v).replace(/[<>&"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c]));
